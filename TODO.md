@@ -12,7 +12,6 @@ they read as fact on the site, so give them a once-over:
 
 - [ ] **JLR digital twin** — architecture section describes the flow as Process Simulate / 3DExperience → Omniverse + USD → Unity → React, with MES and FACMON layered on. Check that's the real shape of it
 - [ ] **JLR digital twin** — the hard problem is written as CAD being too heavy to render in real time, solved by splitting into process cells, automating optimisation and benchmarking zones. That's assembled from the work catalog, not something you said
-- [ ] **JLR digital twin** — outcome reads "working twins of Halewood and Solihull; the team's work was presented at NVIDIA GTC 2025". No numbers, because there are none yet. A figure here would be the single biggest improvement to the page
 - [ ] **JLR driving simulator** — the hard problem is written as keeping CarMaker and the Android HMI app in step through Simulink. Plausible from the catalog, but confirm it was the actual difficulty
 - [ ] **JLR driving simulator** — dates show as 09/2024 onwards because the placement sat inside the JLR role. Give me the real window if you want it shown separately
 - [ ] **JLR driving simulator** — "what I'd do next" suggests adding eye tracking for glance time. That's Claude's suggestion, not your plan
@@ -28,9 +27,9 @@ they read as fact on the site, so give them a once-over:
 - [ ] **HoloLens** — which parts were yours? (chess AI integration, Jenga physics, Tower of Hanoi, menus, the MRTK interaction layer?)
 - [ ] **Car speed from video** — how accurate were the estimates? A number would finish the page
 - [ ] **Boids** — how many agents ran in real time, and did they avoid the icebergs or pass through them?
-- [ ] **JLR metrics** — anything quantified before 30 Nov: hours saved, zones covered, parts optimised, people using it
+- [x] **JLR metrics** — decided (16 Nov): nothing shareable, so the outcome stays qualitative ("working twins of Halewood and Solihull; the team's work was presented at NVIDIA GTC 2025")
 - [ ] **VSCO URL** — `src/data/site.ts`, the icon is ready and waiting
-- [ ] **Ard Nua, One Ballsbridge and Kilternan Gallops** — who were they for (Kuda Media, 3D Design Bureau, something else), and what year? They're the three videos with no blurb
+- [ ] **Ard Nua's year** — it shows 2023 from its upload date; the other two show 2018 and 2017, which match their titles. Give me the real year if 2023 is wrong
 - [ ] **NVIDIA GTC 2025 session + June 2025 LinkedIn post** — paste the URLs and they go back on the digital twin page. Claude searched and couldn't find the session publicly
 
 ## Content from Cormac
@@ -57,7 +56,7 @@ they read as fact on the site, so give them a once-over:
 
 ## Video
 
-- [x] **Blurbs** written for 9 of 12. Still blank: Ard Nua, One Ballsbridge, Kilternan Gallops (see below)
+- [x] **Blurbs** written for all 12
 - [ ] **Check the grouping**: Ard Nua, One Ballsbridge, Kilternan Gallops and the BUWOG tour were sorted by guesswork into `film`. `feature: true` puts a video first in its group
 - [ ] **Check the attributions Claude inferred.** The four UE4 Virtual Tours and the Apartment Navigator demo are credited to Beyonity and dated 2019 rather than their 2023 upload date (memory says your Vimeo hosts the Beyonity walk-throughs, and the developments are Berlin ones). BVR is Beyonity by name. BUWOG is credited to Kuda Media, from the clients line on the media page. A `year` field in `vimeo.json` overrides the upload year — none of the others have one
 - [ ] **Link the walk-throughs from the case studies** that they belong to
