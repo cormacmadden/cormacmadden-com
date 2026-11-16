@@ -8,9 +8,9 @@
    "blurb": "Unreal Engine walk-through of a Berlin apartment, made at Beyonity.",
    "date": "2023-10-24",
    "duration": 46,
-   "year": 2019,
    "category": "walkthrough",
-   "feature": true
+   "feature": true,
+   "year": 2019
   },
   {
    "id": "877653114",
@@ -18,9 +18,9 @@
    "blurb": "Demo of Beyonity's apartment navigator: browsing a development and stepping into a unit.",
    "date": "2023-10-24",
    "duration": 102,
-   "year": 2019,
    "category": "tool",
-   "feature": false
+   "feature": false,
+   "year": 2019
   },
   {
    "id": "877651695",
@@ -28,9 +28,9 @@
    "blurb": "Unreal Engine walk-through of a Berlin apartment, made at Beyonity.",
    "date": "2023-10-24",
    "duration": 59,
-   "year": 2019,
    "category": "walkthrough",
-   "feature": true
+   "feature": true,
+   "year": 2019
   },
   {
    "id": "877651252",
@@ -38,9 +38,9 @@
    "blurb": "Unreal Engine walk-through of a Berlin apartment, made at Beyonity.",
    "date": "2023-10-24",
    "duration": 41,
-   "year": 2019,
    "category": "walkthrough",
-   "feature": true
+   "feature": true,
+   "year": 2019
   },
   {
    "id": "877650957",
@@ -48,9 +48,9 @@
    "blurb": "Unreal Engine walk-through of a Berlin apartment, made at Beyonity.",
    "date": "2023-10-24",
    "duration": 70,
-   "year": 2019,
    "category": "walkthrough",
-   "feature": true
+   "feature": true,
+   "year": 2019
   },
   {
    "id": "874355045",
