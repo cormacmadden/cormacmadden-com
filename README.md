@@ -22,6 +22,7 @@ npm run check      # type-check .astro files and content
 | Hero / clip videos (MP4) | `public/media/<slug>/` |
 | Case-study images (optimised at build) | `src/assets/projects/<slug>/` |
 | ArtStation grid on /work/media | `src/data/artstation.ts` (hotlinked from ArtStation CDN) |
+| Vimeo videos on /work/media | `src/data/vimeo.json`, thumbnails in `src/assets/video/` |
 
 Add a project: create `src/content/projects/my-project.mdx`, fill the frontmatter,
 and add its slug to a lens in `src/data/lenses.ts`. It appears at `/work/my-project`.
@@ -39,6 +40,21 @@ node scripts/sync-artstation.mjs --check   # CI: fail if it's out of date
 
 The sync keeps hand-written fields: `slug`, `category`, `model` (links a post to a 3D model
 in `src/data/models.ts`) and any entry with no `hash` (something not posted on ArtStation).
+
+## Video
+
+`/work/media` has a Video section fed by `src/data/vimeo.json`, grouped into
+`walkthrough`, `tool` and `film`. Thumbnails are self-hosted in `src/assets/video/<id>.jpg`,
+and the Vimeo player is only loaded when a visitor presses play, so the page
+makes no third-party request before that.
+
+```sh
+npm run sync:vimeo                    # refresh from vimeo.com/cormacmadden
+node scripts/sync-vimeo.mjs --check   # CI: fail if it's out of date
+```
+
+The sync keeps hand-written fields: `category`, `feature` (shows first), `blurb`,
+`hide`, and edited titles. New uploads arrive as `category: film`, `feature: false`.
 
 ## Adding a 3D model
 
@@ -65,5 +81,15 @@ NDA rule: no JLR screenshots — use representative renders with `hero.represent
 
 ## Deploy
 
-`Dockerfile` builds the site and serves it with nginx (`docker/nginx.conf`).
-`.github/workflows/deploy.yml` runs on the self-hosted runner on push to `main`.
+The site runs on the mini PC: nginx in Docker (`Dockerfile`, `docker/nginx.conf`),
+published at cormacmadden.com through a Cloudflare tunnel, with no ports opened on
+the router. `docker-compose.yml` runs both containers and
+`.github/workflows/deploy.yml` redeploys on every push to `main` via the
+self-hosted runner.
+
+**[docs/DEPLOY.md](docs/DEPLOY.md) has the one-time setup and the troubleshooting notes.**
+
+```sh
+docker compose --env-file /opt/cormacmadden-com/.env up -d --build   # deploy by hand
+docker compose logs -f web tunnel                                    # watch it
+```

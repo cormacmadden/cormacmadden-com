@@ -34,10 +34,17 @@ Placeholders in the site are marked `TODO` in the source; this list is the overv
 - [ ] **Self-host the ArtStation images** instead of hotlinking their CDN
 - [ ] **GitHub sync tool** — script that pulls repo metadata (stars, description, last update) for projects with a `repo` link, flags new repos without a project page, and keeps star counts current
 
+## Video
+
+- [ ] **Blurbs** for the videos in `src/data/vimeo.json` — only Hamilton Gardens and BVR have one
+- [ ] **Check the grouping**: the four UE4 Virtual Tours, Ard Nua, One Ballsbridge, Kilternan Gallops and the BUWOG tour were sorted by guesswork into `walkthrough` / `tool` / `film`. `feature: true` puts a video first in its group
+- [ ] **Say who each one was for** (Beyonity, 3D Design Bureau, Kuda Media) — the upload dates aren't the work dates
+- [ ] **Link the walk-throughs from the case studies** that they belong to
+
 ## Logos and links
 
 - [ ] Logo for **Kuda Media** (media page, clients section)
-- [ ] **Vimeo** and **VSCO** profile URLs in `src/data/site.ts` (icons are ready)
+- [ ] **VSCO** profile URL in `src/data/site.ts` (icon is ready). Vimeo is done
 - [ ] Beyonity wordmark is tiny in the square logo slot — widen the slot or use a square mark
 
 ## Design ideas (not done yet)
