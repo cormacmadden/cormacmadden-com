@@ -5,7 +5,8 @@
  *   node scripts/sync-artstation.mjs --check    # exit 1 if anything changed (for CI)
  *
  * Hand-written fields are kept: `model` (id in src/data/models.ts), `category`,
- * and any entry with no `hash` (e.g. the shed studio, which isn't on ArtStation).
+ * `hide` (keeps a post in the file but off the site), and any entry with no
+ * `hash` (e.g. the shed studio, which isn't on ArtStation).
  */
 import { readFile, writeFile } from 'node:fs/promises';
 
@@ -60,6 +61,7 @@ for (const item of list) {
           : { type: 'image', image: a.image_url };
       }),
     ...(old.model ? { model: old.model } : {}),
+    ...(old.hide ? { hide: true } : {}),
   });
 }
 

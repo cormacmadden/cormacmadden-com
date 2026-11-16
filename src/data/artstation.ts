@@ -27,13 +27,15 @@ export interface ArtProject {
   assets: ArtAsset[];
   /** id in src/data/models.ts */
   model?: string;
+  /** true = keep the post in the file but leave it off the site. */
+  hide?: boolean;
 }
 
 export const artstationProfile: string = raw.profile;
 export const artstationPulled: string = raw.pulled;
 
 export const artProjects: ArtProject[] = (raw.projects as ArtProject[])
-  .slice()
+  .filter((p) => !p.hide)
   .sort((a, b) => b.date.localeCompare(a.date));
 
 export const artUrl = (hash: string) => `https://www.artstation.com/artwork/${hash}`;
