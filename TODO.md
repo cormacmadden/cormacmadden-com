@@ -9,7 +9,7 @@ Placeholders in the site are marked `TODO` in the source; this list is the overv
 - [ ] **Lens intros** — expand the three intros in `src/data/lenses.ts`
 - [ ] **JLR digital twin** — role, problem, outcome, full write-up, architecture diagram; representative renders
 - [ ] **JLR digital twin** — link the NVIDIA GTC 2025 session and the June 2025 LinkedIn post
-- [ ] **JLR digital twin** — replace the temporary hero (DigitalTwinWebApp screenshot) with a generic, de-branded render: no JLR logo, plant names, model names or KPI figures
+- [x] **JLR digital twin** — hero is now a 40 s clip of the twin replaying a production hour (cleared verbally by Cormac's manager, Nov 2026). It shows line IDs, station numbers and MES/andon states but no company name, plant name or date. The full 73 s version, and the "Quality Tower" cut with JLR/Solihull title cards, stay private — don't publish those
 - [ ] **JLR driving simulator** — images: the simulator shots show the unreleased JEA buck, so don't use them unless JLR gives written permission. Use a diagram, CarMaker scenes or a representative render instead
 - [ ] **JLR driving simulator** — summary, stack, role, problem, outcome, write-up, diagram
 - [ ] **Head-tracked LED wall** — role, problem, outcome, context, architecture, what I built, hard problem, result
