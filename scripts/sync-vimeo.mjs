@@ -5,8 +5,8 @@
  *   npm run sync:vimeo              # update
  *   npm run sync:vimeo -- --check   # exit 1 if anything changed (for CI)
  *
- * Hand-written fields are kept: category, feature, blurb, hide, and an edited
- * title (titles are only taken from Vimeo for videos that are new here).
+ * Hand-written fields are kept: category, feature, blurb, year, hide, and an
+ * edited title (titles are only taken from Vimeo for videos that are new here).
  */
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -52,6 +52,7 @@ for (const item of list) {
     duration: item.duration,
     category: old.category ?? 'film',
     feature: old.feature ?? false,
+    ...(old.year ? { year: old.year } : {}),
     ...(old.hide ? { hide: true } : {}),
   });
 

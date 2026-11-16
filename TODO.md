@@ -30,6 +30,7 @@ they read as fact on the site, so give them a once-over:
 - [ ] **Boids** — how many agents ran in real time, and did they avoid the icebergs or pass through them?
 - [ ] **JLR metrics** — anything quantified before 30 Nov: hours saved, zones covered, parts optimised, people using it
 - [ ] **VSCO URL** — `src/data/site.ts`, the icon is ready and waiting
+- [ ] **Ard Nua, One Ballsbridge and Kilternan Gallops** — who were they for (Kuda Media, 3D Design Bureau, something else), and what year? They're the three videos with no blurb
 - [ ] **NVIDIA GTC 2025 session + June 2025 LinkedIn post** — paste the URLs and they go back on the digital twin page. Claude searched and couldn't find the session publicly
 
 ## Content from Cormac
@@ -56,9 +57,9 @@ they read as fact on the site, so give them a once-over:
 
 ## Video
 
-- [ ] **Blurbs** for the videos in `src/data/vimeo.json` — only Hamilton Gardens and BVR have one
-- [ ] **Check the grouping**: the four UE4 Virtual Tours, Ard Nua, One Ballsbridge, Kilternan Gallops and the BUWOG tour were sorted by guesswork into `walkthrough` / `tool` / `film`. `feature: true` puts a video first in its group
-- [ ] **Say who each one was for** (Beyonity, 3D Design Bureau, Kuda Media) — the upload dates aren't the work dates
+- [x] **Blurbs** written for 9 of 12. Still blank: Ard Nua, One Ballsbridge, Kilternan Gallops (see below)
+- [ ] **Check the grouping**: Ard Nua, One Ballsbridge, Kilternan Gallops and the BUWOG tour were sorted by guesswork into `film`. `feature: true` puts a video first in its group
+- [ ] **Check the attributions Claude inferred.** The four UE4 Virtual Tours and the Apartment Navigator demo are credited to Beyonity and dated 2019 rather than their 2023 upload date (memory says your Vimeo hosts the Beyonity walk-throughs, and the developments are Berlin ones). BVR is Beyonity by name. BUWOG is credited to Kuda Media, from the clients line on the media page. A `year` field in `vimeo.json` overrides the upload year — none of the others have one
 - [ ] **Link the walk-throughs from the case studies** that they belong to
 
 ## Logos and links
@@ -78,9 +79,11 @@ they read as fact on the site, so give them a once-over:
 
 ## Site / infra
 
-- [ ] Public ingress (reverse proxy with TLS or Cloudflare Tunnel) — `how-this-site-is-built`
-- [ ] Architecture diagram for `how-this-site-is-built`
-- [ ] Point cormacmadden.com at the server
+- [x] Public ingress — the existing `minipc-docker` Cloudflare tunnel now routes cormacmadden.com and www to `http://192.168.1.214:8088`. `www` used to point at the dev server on the desktop
+- [x] Architecture diagram for `how-this-site-is-built`
+- [x] cormacmadden.com points at the server and is live
+- [ ] **Register a self-hosted runner for this repo** — runners are per-repo, so the one serving DigitalTwinWebApp and life-os won't pick this up. Until then deploys are `git pull && docker compose up -d --build` on the LXC, and the "a push to main starts a runner" line on `how-this-site-is-built` is aspirational
+- [ ] Turn on Cloudflare "Always Use HTTPS" (SSL/TLS → Edge Certificates) — http:// currently serves rather than redirecting
 - [ ] Delete the `.review/` and `_to_delete/` folders, and the empty `public/vendor/` folder (preview images and test builds; git-ignored)
 
 ## Done

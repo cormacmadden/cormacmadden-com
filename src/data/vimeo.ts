@@ -3,7 +3,7 @@
  * `npm run sync:vimeo`. Thumbnails are self-hosted in src/assets/video/<id>.jpg
  * so the page makes no request to Vimeo until someone presses play.
  *
- * Hand-written fields kept by the sync script: category, feature, blurb, hide
+ * Hand-written fields kept by the sync script: category, feature, blurb, year, hide
  * (and any title you have edited).
  */
 import type { ImageMetadata } from 'astro';
@@ -18,6 +18,8 @@ export interface Video {
   date: string;
   /** Length in seconds. */
   duration: number;
+  /** The year the work was made, when that isn't the year it was uploaded. */
+  year?: number;
   category: VideoCategory;
   feature: boolean;
   hide?: boolean;
@@ -46,7 +48,7 @@ export const videos: Video[] = (raw.videos as Omit<Video, 'thumb' | 'url' | 'emb
 
 export const videosBy = (category: VideoCategory) => videos.filter((v) => v.category === category);
 
-export const videoYear = (v: Video) => Number(v.date.slice(0, 4));
+export const videoYear = (v: Video) => v.year ?? Number(v.date.slice(0, 4));
 
 /** 776 -> "12:56", 46 -> "0:46" */
 export const videoLength = (seconds: number) =>

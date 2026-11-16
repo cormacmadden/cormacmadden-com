@@ -5,45 +5,50 @@
   {
    "id": "877655250",
    "title": "UE4 Virtual Tour: Weberwiese",
-   "blurb": "",
+   "blurb": "Unreal Engine walk-through of a Berlin apartment, made at Beyonity.",
    "date": "2023-10-24",
    "duration": 46,
+   "year": 2019,
    "category": "walkthrough",
    "feature": true
   },
   {
    "id": "877653114",
    "title": "Apartment Navigator app demo",
-   "blurb": "",
+   "blurb": "Demo of Beyonity's apartment navigator: browsing a development and stepping into a unit.",
    "date": "2023-10-24",
    "duration": 102,
+   "year": 2019,
    "category": "tool",
    "feature": false
   },
   {
    "id": "877651695",
    "title": "UE4 Virtual Tour: Neu Kastels",
-   "blurb": "",
+   "blurb": "Unreal Engine walk-through of a Berlin apartment, made at Beyonity.",
    "date": "2023-10-24",
    "duration": 59,
+   "year": 2019,
    "category": "walkthrough",
    "feature": true
   },
   {
    "id": "877651252",
    "title": "UE4 Virtual Tour: Koryfeum",
-   "blurb": "",
+   "blurb": "Unreal Engine walk-through of a Berlin apartment, made at Beyonity.",
    "date": "2023-10-24",
    "duration": 41,
+   "year": 2019,
    "category": "walkthrough",
    "feature": true
   },
   {
    "id": "877650957",
    "title": "UE4 Virtual Tour: GenterStrasse",
-   "blurb": "",
+   "blurb": "Unreal Engine walk-through of a Berlin apartment, made at Beyonity.",
    "date": "2023-10-24",
    "duration": 70,
+   "year": 2019,
    "category": "walkthrough",
    "feature": true
   },
@@ -59,7 +64,7 @@
   {
    "id": "490043603",
    "title": "Hamilton Gardens: tour of the real-time apartment",
-   "blurb": "",
+   "blurb": "A tour of the same apartment, showing the real-time build running.",
    "date": "2020-12-11",
    "duration": 53,
    "category": "walkthrough",
@@ -77,7 +82,7 @@
   {
    "id": "346349546",
    "title": "BVR Virtual Scene Package",
-   "blurb": "Explainer video for BVR's virtual apartment tools.",
+   "blurb": "Explainer for B-VR's virtual apartment tools, made at Beyonity in Berlin.",
    "date": "2019-07-05",
    "duration": 107,
    "category": "tool",
@@ -104,7 +109,7 @@
   {
    "id": "188184366",
    "title": "BUWOG property tour",
-   "blurb": "",
+   "blurb": "Portfolio film for BUWOG, shot and cut through my freelance studio, Kuda Media.",
    "date": "2016-10-20",
    "duration": 776,
    "category": "film",
