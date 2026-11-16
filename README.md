@@ -81,15 +81,15 @@ NDA rule: no JLR screenshots — use representative renders with `hero.represent
 
 ## Deploy
 
-The site runs on the mini PC: nginx in Docker (`Dockerfile`, `docker/nginx.conf`),
-published at cormacmadden.com through a Cloudflare tunnel, with no ports opened on
-the router. `docker-compose.yml` runs both containers and
+The site runs on the mini PC (LXC 192.168.1.214): nginx in Docker (`Dockerfile`,
+`docker/nginx.conf`) on port 8088, published at cormacmadden.com by the existing
+`minipc-docker` Cloudflare tunnel, with no ports opened on the router.
 `.github/workflows/deploy.yml` redeploys on every push to `main` via the
 self-hosted runner.
 
 **[docs/DEPLOY.md](docs/DEPLOY.md) has the one-time setup and the troubleshooting notes.**
 
 ```sh
-docker compose --env-file /opt/cormacmadden-com/.env up -d --build   # deploy by hand
-docker compose logs -f web tunnel                                    # watch it
+docker compose up -d --build     # deploy by hand, on the LXC
+docker compose logs -f web       # watch it
 ```

@@ -1,10 +1,11 @@
-# Runs the site and the Cloudflare tunnel that puts it on cormacmadden.com.
+# Serves the built site on port 8088 of the docker LXC (192.168.1.214).
 #
-#   docker compose --env-file .env up -d --build
+#   docker compose up -d --build
 #
-# .env (next to this file, never committed) holds:
-#   TUNNEL_TOKEN=<token from the Cloudflare Zero Trust dashboard>
-# See docs/DEPLOY.md.
+# The existing `minipc-docker` Cloudflare tunnel routes cormacmadden.com and
+# www.cormacmadden.com to http://192.168.1.214:8088, the same way it already
+# routes cloud/claw/gymin. Nothing is forwarded on the router and this port is
+# not reachable from outside the LAN. See docs/DEPLOY.md.
 name: cormacmadden-com
 
 services:
@@ -13,8 +14,6 @@ services:
     image: cormacmadden-com:latest
     container_name: cormacmadden-com
     restart: unless-stopped
-    # Only for reaching the site on the LAN or over Tailscale. Cloudflare reaches
-    # it over the compose network instead, so this can be removed.
     ports:
       - "8088:80"
     healthcheck:
@@ -23,16 +22,3 @@ services:
       timeout: 5s
       retries: 3
       start_period: 5s
-
-  tunnel:
-    image: cloudflare/cloudflared:latest
-    container_name: cormacmadden-tunnel
-    restart: unless-stopped
-    command: tunnel --no-autoupdate run
-    environment:
-      # Set in .env. The hostname -> http://web:80 mapping lives in the
-      # Cloudflare dashboard, so this container needs nothing else.
-      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?set TUNNEL_TOKEN in .env}
-    depends_on:
-      web:
-        condition: service_started
