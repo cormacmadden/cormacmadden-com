@@ -1,0 +1,26 @@
+---
+title: Predicting Airbnb ratings from reviews
+summary: NLP and regression models that predict a listing's rating from its written reviews and listing data.
+lenses: []
+tags: [Machine learning, NLP, Python, Academic]
+tier: 3
+dates: { start: "2022", end: "2023" } # MSc, 2022–23
+role: Solo project
+stack: [Python, scikit-learn, pandas]
+hero:
+  poster: ../../assets/projects/airbnb-rating-prediction/ratings-map.jpg
+  alt: Scatter plot of Dublin Airbnb listings by latitude and longitude, coloured by rating
+gallery:
+  - src: ../../assets/projects/airbnb-rating-prediction/ratings-map.jpg
+    alt: Scatter plot of listings by coordinates, coloured by rating
+    caption: Ratings by location.
+  - src: ../../assets/projects/airbnb-rating-prediction/ridge-cv.jpg
+    alt: Line chart of mean error against the ridge regression C value, with error bars
+    caption: Cross-validating the ridge regression penalty.
+links:
+  - { label: "Project report (PDF)", href: "/docs/airbnb-rating-prediction-report.pdf" }
+---
+
+Machine Learning module assignment: predict an Airbnb listing's rating from its written reviews and other listing information.
+
+I tried two approaches. The first used NLP features from the reviews alone, comparing linear, random forest, ridge and lasso regression; ridge regression did best. Because almost all real ratings sit between 4.0 and 5.0, the signal was weak: a root mean square error of 0.43 against 0.78 for a dummy baseline. It was a useful lesson in how much the data limits the model.

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cormacmadden.com/sitemap-index.xml

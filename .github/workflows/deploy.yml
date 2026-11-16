@@ -1,0 +1,46 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Never run two deploys at once.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    # The same self-hosted runner used for DigitalTwinWebApp and life-os.
+    # It needs docker access and the file /opt/cormacmadden-com/.env (TUNNEL_TOKEN).
+    runs-on: self-hosted
+    env:
+      ENV_FILE: /opt/cormacmadden-com/.env
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the tunnel secret is present
+        run: |
+          if [ ! -f "$ENV_FILE" ]; then
+            echo "Missing $ENV_FILE - see docs/DEPLOY.md"
+            exit 1
+          fi
+
+      - name: Build and start
+        run: docker compose --env-file "$ENV_FILE" up -d --build
+
+      - name: Smoke test the container
+        run: |
+          for i in $(seq 1 10); do
+            if docker compose --env-file "$ENV_FILE" exec -T web wget -qO- http://localhost/ > /dev/null; then
+              echo "site is serving"; exit 0
+            fi
+            sleep 3
+          done
+          echo "site did not come up"; docker compose --env-file "$ENV_FILE" logs --tail 50 web; exit 1
+
+      - name: Tidy old images
+        if: always()
+        run: docker image prune -f --filter "until=336h"

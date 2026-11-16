@@ -1,0 +1,13 @@
+node_modules
+dist
+.astro
+.git
+.github
+.review
+_to_delete
+*.tgz
+docs
+TODO.md
+*.md
+!src/**/*.md
+!src/**/*.mdx

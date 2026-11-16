@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description = site.description } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : site.title;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+  </head>
+  <body>
+    <a class="visually-hidden" href="#main">Skip to content</a>
+    <Header />
+    <main id="main" class="container">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // Subtle fade-in for content below the fold. Skipped for reduced motion and for anything
+      // already on screen at load, so nothing visible ever blinks in.
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduce && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const el = entry.target as HTMLElement;
+            io.unobserve(el);
+            el.classList.add('is-in');
+            // Hand transforms back to the component's own hover styles once done.
+            const done = (e: TransitionEvent) => {
+              if (e.target !== el) return; // ignore transitions bubbling up from children
+              el.classList.remove('reveal', 'is-in');
+              el.removeEventListener('transitionend', done);
+            };
+            el.addEventListener('transitionend', done);
+          }
+        }, { rootMargin: '0px 0px -6% 0px' });
+        const targets = document.querySelectorAll<HTMLElement>(
+          'main h2, main .lead, main .grid > *, main .art-grid > *, main .timeline > li, main .reveal-me',
+        );
+        targets.forEach((el) => {
+          if (el.getBoundingClientRect().top < window.innerHeight) return;
+          const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
+          const i = el.matches('h2, .lead') ? 0 : siblings.indexOf(el) % 4;
+          el.style.setProperty('--reveal-delay', `${i * 60}ms`);
+          el.classList.add('reveal');
+          io.observe(el);
+        });
+      }
+    </script>
+  </body>
+</html>

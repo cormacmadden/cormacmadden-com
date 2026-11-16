@@ -1,0 +1,102 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from './Base.astro';
+import ToolChip from '../components/ToolChip.astro';
+import ModelViewer from '../components/ModelViewer.astro';
+import { models } from '../data/models';
+
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const d = project.data;
+const model = d.model ? models.find((m) => m.id === d.model) : undefined;
+const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} – ${d.dates.end ?? 'present'}`;
+---
+<Base title={d.title} description={d.summary}>
+  <article class="case-study">
+    <p class="muted"><a href="/work">← All work</a></p>
+    <h1>{d.title}</h1>
+    <p class="lead">{d.summary}</p>
+
+    {d.hero && (
+      <figure class="hero">
+        {d.hero.video ? (
+          <video autoplay muted loop playsinline preload="metadata" poster={d.hero.poster?.src} aria-label={d.hero.alt}>
+            <source src={d.hero.video} type="video/mp4" />
+          </video>
+        ) : d.hero.poster ? (
+          <Image src={d.hero.poster} alt={d.hero.alt} widths={[640, 1280]} sizes="(max-width: 78rem) 100vw, 78rem" />
+        ) : null}
+        {d.hero.representative && <figcaption class="muted">Representative render, not production imagery.</figcaption>}
+      </figure>
+    )}
+
+    <dl class="tldr card">
+      {d.problem && <><dt>Problem</dt><dd>{d.problem}</dd></>}
+      <dt>My role</dt><dd>{d.role}{d.team && ` · ${d.team}`}</dd>
+      <dt>Stack</dt><dd><ul class="chips stack">{d.stack.map((s) => <ToolChip name={s} />)}</ul></dd>
+      {d.outcome && <><dt>Outcome</dt><dd>{d.outcome}</dd></>}
+      <dt>Dates</dt><dd>{dates}</dd>
+    </dl>
+
+    {model && (
+      <section class="model-section">
+        <h2>Explore the model</h2>
+        <ModelViewer model={model} />
+      </section>
+    )}
+
+    <div class="prose"><slot /></div>
+
+    {(d.clips.length > 0 || d.gallery.length > 0) && (
+      <section>
+        <h2>Gallery</h2>
+        <div class="gallery">
+          {d.clips.map((c) => (
+            <figure>
+              <video autoplay muted loop playsinline preload="none" poster={c.poster?.src} aria-label={c.alt}>
+                <source src={c.src} type="video/mp4" />
+              </video>
+              {c.caption && <figcaption class="muted">{c.caption}</figcaption>}
+            </figure>
+          ))}
+          {d.gallery.map((g) => (
+            <figure>
+              <Image src={g.src} alt={g.alt} widths={[480, 960]} sizes="(max-width: 40rem) 100vw, 34rem" loading="lazy" />
+              {g.caption && <figcaption class="muted">{g.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {(d.repo || d.video || d.links.length > 0) && (
+      <section>
+        <h2>Links</h2>
+        <ul>
+          {d.video && <li><a href={d.video}>Demo video</a></li>}
+          {d.repo && <li><a href={d.repo}>Source code</a></li>}
+          {d.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </section>
+    )}
+  </article>
+</Base>
+
+<style>
+  .hero { margin: 2rem 0; }
+  .hero video, .hero :global(img) { width: 100%; border-radius: var(--radius); background: var(--border); }
+  /* Stills are cropped to 16:9; videos keep their own shape (some are very wide or tall). */
+  .hero :global(img) { aspect-ratio: 16 / 9; object-fit: cover; }
+  figcaption { font-size: 0.85rem; margin-top: 0.5rem; }
+  .tldr { display: grid; grid-template-columns: 7rem 1fr; gap: 0.5rem 1rem; margin: 2rem 0; }
+  .tldr dt { font-weight: 600; }
+  .tldr dd { margin: 0; }
+  .tldr .stack { margin: 0; }
+  .prose { max-width: 46rem; }
+  .model-section { margin-top: 2rem; }
+  .gallery { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
+  .gallery figure { margin: 0; }
+  .gallery video, .gallery :global(img) { width: 100%; height: auto; border-radius: var(--radius); background: var(--border); }
+  @media (max-width: 40rem) { .tldr { grid-template-columns: 1fr; } .tldr dd { margin-bottom: 0.5rem; } }
+</style>

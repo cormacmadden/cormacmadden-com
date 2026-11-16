@@ -1,0 +1,195 @@
+---
+/**
+ * Spin-around 3D model rendered with three.js, lit by a shadow-casting "sun"
+ * plus soft room lighting. three.js and the .glb only load when the viewer
+ * scrolls near the screen; the poster shows until the first frame is drawn.
+ */
+import type { Model } from '../data/models';
+interface Props { model: Model; caption?: boolean }
+const { model, caption = true } = Astro.props;
+const config = {
+  src: model.src,
+  orbit: model.cameraOrbit ?? { azimuthDeg: 30, polarDeg: 65, distance: 1 },
+  sun: model.sun ?? [3, 5, 4],
+  shell: model.shell ?? [],
+};
+---
+<figure class="model">
+  <div class="stage" data-model={JSON.stringify(config)} role="img" aria-label={`3D model: ${model.title}. Drag to rotate, scroll or pinch to zoom.`}>
+    {model.poster && <img class="poster" src={model.poster} alt="" loading="lazy" decoding="async" />}
+    <div class="progress" aria-hidden="true"><span></span></div>
+  </div>
+  {caption && (
+    <figcaption>
+      <strong>{model.title}</strong>
+      <span class="muted">{model.description}</span>
+    </figcaption>
+  )}
+</figure>
+
+<script>
+  type Config = {
+    src: string;
+    orbit: { azimuthDeg: number; polarDeg: number; distance: number };
+    sun: [number, number, number];
+    shell: string[];
+  };
+
+  async function mount(stage: HTMLElement) {
+    const config: Config = JSON.parse(stage.dataset.model!);
+    const [THREE, { GLTFLoader }, { OrbitControls }, { RoomEnvironment }, { MeshoptDecoder }] = await Promise.all([
+      import('three'),
+      import('three/addons/loaders/GLTFLoader.js'),
+      import('three/addons/controls/OrbitControls.js'),
+      import('three/addons/environments/RoomEnvironment.js'),
+      import('three/addons/libs/meshopt_decoder.module.js'),
+    ]);
+
+    let renderer: InstanceType<typeof THREE.WebGLRenderer>;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    } catch {
+      return; // No WebGL: keep the poster.
+    }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFShadowMap; // softened with shadow.radius below
+    stage.prepend(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = 0.35; // soft fill so shadows aren't black
+
+    const camera = new THREE.PerspectiveCamera(35, 1, 0.05, 200); // near/far set from the model's size once it's loaded
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.enablePan = false;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    controls.autoRotate = !reduceMotion;
+    controls.autoRotateSpeed = 0.6;
+    controls.addEventListener('start', () => (controls.autoRotate = false));
+
+    // Load the model.
+    const bar = stage.querySelector<HTMLElement>('.progress span');
+    stage.classList.add('loading');
+    const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
+    const gltf = await loader.loadAsync(config.src, (e: ProgressEvent) => {
+      if (bar && e.total) bar.style.width = `${Math.round((e.loaded / e.total) * 100)}%`;
+    });
+    stage.classList.remove('loading');
+    const model = gltf.scene;
+
+    const inShell = (obj: any) => {
+      for (let o = obj; o; o = o.parent) {
+        if (config.shell.some((name) => o.name === name || o.name.startsWith(name + '.') || o.name.startsWith(name + '_'))) return true;
+      }
+      return false;
+    };
+    model.traverse((obj: any) => {
+      if (!obj.isMesh) return;
+      const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+      // Glass, see-through materials and the building shell don't block the sun.
+      const seeThrough = mats.some((m: any) => m.transmission > 0 || m.transparent || m.opacity < 1 || !m.name);
+      obj.castShadow = !seeThrough && !inShell(obj);
+      obj.receiveShadow = true;
+    });
+    scene.add(model);
+
+    // Frame the model.
+    const box = new THREE.Box3().setFromObject(model);
+    const sphere = box.getBoundingSphere(new THREE.Sphere());
+    const center = sphere.center;
+    const radius = sphere.radius;
+    const fitDistance = radius / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2));
+    // Models are exported at wildly different scales, so fit the clipping planes to this one.
+    camera.near = radius / 100;
+    camera.far = fitDistance * 8;
+    camera.updateProjectionMatrix();
+    const deg = THREE.MathUtils.degToRad;
+    camera.position.copy(center).add(
+      new THREE.Vector3().setFromSpherical(
+        new THREE.Spherical(fitDistance * config.orbit.distance, deg(config.orbit.polarDeg), deg(config.orbit.azimuthDeg)),
+      ),
+    );
+    controls.target.copy(center);
+    controls.minDistance = radius * 0.6;
+    controls.maxDistance = fitDistance * 1.6;
+    controls.maxPolarAngle = deg(88); // don't go under the floor
+    controls.update();
+
+    // Sun: directional light with a shadow map fitted to the model.
+    const sun = new THREE.DirectionalLight(0xfff1e0, 3.2);
+    sun.position.copy(center).add(new THREE.Vector3(...config.sun).normalize().multiplyScalar(radius * 2));
+    sun.target.position.copy(center);
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(2048, 2048);
+    const cam = sun.shadow.camera;
+    cam.left = cam.bottom = -radius;
+    cam.right = cam.top = radius;
+    cam.near = radius * 0.5;
+    cam.far = radius * 4;
+    sun.shadow.bias = -0.0004;
+    sun.shadow.normalBias = 0.02;
+    sun.shadow.radius = 4;
+    scene.add(sun, sun.target);
+    scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x8a6f55, 0.35));
+
+    // Soft shadow on the ground under the model.
+    const ground = new THREE.Mesh(
+      new THREE.PlaneGeometry(radius * 6, radius * 6),
+      new THREE.ShadowMaterial({ opacity: 0.18 }),
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = box.min.y - 0.001;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // Size, render loop (only while on screen), poster hand-off.
+    const resize = () => {
+      const { clientWidth: w, clientHeight: h } = stage;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    };
+    new ResizeObserver(resize).observe(stage);
+    resize();
+
+    let visible = true;
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(stage);
+    renderer.setAnimationLoop(() => {
+      if (!visible) return;
+      controls.update();
+      renderer.render(scene, camera);
+    });
+    requestAnimationFrame(() => stage.classList.add('ready'));
+  }
+
+  // Start loading when a viewer gets close to the screen.
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        io.unobserve(e.target);
+        mount(e.target as HTMLElement).catch((err) => console.error('3D model failed to load', err));
+      }
+    },
+    { rootMargin: '300px' },
+  );
+  document.querySelectorAll<HTMLElement>('.model .stage').forEach((el) => io.observe(el));
+</script>
+
+<style>
+  .model { margin: 0; }
+  .stage { position: relative; width: 100%; aspect-ratio: 16 / 10; touch-action: pan-y; } /* no frame: the model sits straight on the page */
+  .stage :global(canvas) { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; }
+  .stage :global(canvas:active) { cursor: grabbing; }
+  .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s; pointer-events: none; }
+  .stage.ready .poster { opacity: 0; }
+  .progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; opacity: 0; }
+  .stage.loading .progress { opacity: 1; }
+  .progress span { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.2s; }
+  figcaption { display: flex; flex-direction: column; margin-top: 0.5rem; font-size: 0.95rem; }
+</style>

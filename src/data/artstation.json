@@ -1,0 +1,433 @@
+{
+ "pulled": "2026-09-22",
+ "profile": "https://www.artstation.com/comadden",
+ "projects": [
+  {
+   "hash": "g8mVaQ",
+   "slug": "hamilton-gardens-apartment-tour",
+   "title": "Hamilton Gardens Virtual Apartment Tour",
+   "description": "Tour of a one-bed apartment, rendered in Unreal Engine using baked lighting for performance. A VR headset walk-through is possible too, but isn't shown here. Most 3D models are from Dimensiva; the apartment is modelled to the spec of the Hamilton Gardens development. The point of the project was to test the Blender to Unreal Engine workflow for architectural visualisation.",
+   "software": [
+    "Unreal Engine",
+    "Blender"
+   ],
+   "date": "2022-09-29",
+   "category": "arch-viz",
+   "cover": "https://cdna.artstation.com/p/assets/covers/images/054/404/714/large/cormac-madden-cormac-madden-splash.jpg?1664458327",
+   "assets": [
+    {
+     "type": "video",
+     "image": "https://cdna.artstation.com/p/assets/videos/images/054/404/564/large/cormac-madden-1517119586-79889e13ee183caeae59b59e7ff58ca2a3d049c7ecfe28d7da79b393e595cb10-d-295x166.jpg?1664458054",
+     "embed": "https://player.vimeo.com/video/755128719?h=14b7ef5367&app_id=122963&dnt=1",
+     "title": "Hamilton Gardens 1-bed apartment walk-through"
+    },
+    {
+     "type": "video",
+     "image": "https://cdnb.artstation.com/p/assets/videos/images/054/404/653/large/cormac-madden-1013858452-ff394c05df5f9e3900c9925bff2cb5c2cb916858dbfddfe6652204f8f8b2b088-d-295x166.jpg?1664458219",
+     "embed": "https://player.vimeo.com/video/490043603?h=3e22d3b517&app_id=122963&dnt=1",
+     "title": "Hamilton Gardens tour of the real-time apartment"
+    }
+   ]
+  },
+  {
+   "hash": "YeP6GK",
+   "slug": "berlin-penthouse-apartment",
+   "title": "Berlin Penthouse Apartment",
+   "description": "Unreal Engine apartment rendered with baked lighting and optimised for virtual walk-throughs.",
+   "software": [
+    "Unreal Engine",
+    "Blender",
+    "Substance 3D Painter"
+   ],
+   "date": "2020-09-02",
+   "category": "arch-viz",
+   "cover": "https://cdna.artstation.com/p/assets/images/images/029/935/346/large/cormac-madden-highresscreenshot00004-min.jpg?1599077419",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/029/935/346/large/cormac-madden-highresscreenshot00004-min.jpg?1599077419"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/029/935/421/large/cormac-madden-highresscreenshot00009-min.jpg?1599077607"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/029/935/434/large/cormac-madden-highresscreenshot00011-min.jpg?1599077645"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/029/935/597/large/cormac-madden-highresscreenshot00014-min.jpg?1599077972"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/029/935/608/large/cormac-madden-highresscreenshot00012-min.jpg?1599077992"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/029/935/352/large/cormac-madden-highresscreenshot00016-min.jpg?1599077450"
+    }
+   ]
+  },
+  {
+   "hash": "VyXqBb",
+   "slug": "verified-views-before-after",
+   "title": "Architectural Before/After of Verified Views",
+   "description": "Sample of post-production work on verified views for 3D Design Bureau.",
+   "software": [
+    "Photoshop"
+   ],
+   "date": "2022-09-22",
+   "category": "post-production",
+   "cover": "https://cdna.artstation.com/p/assets/images/images/054/145/684/large/cormac-madden-artboard-4-small.jpg?1663855043",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/054/145/684/large/cormac-madden-artboard-4-small.jpg?1663855043"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/054/145/622/large/cormac-madden-artboard-1.jpg?1663854893"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/054/145/635/large/cormac-madden-artboard-2.jpg?1663854935"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/054/146/073/large/cormac-madden-artboard-3.jpg?1663855673"
+    }
+   ]
+  },
+  {
+   "hash": "oAn0zO",
+   "slug": "3ddb-post-production",
+   "title": "3DDB Post Production Work",
+   "description": "",
+   "software": [],
+   "date": "2021-10-18",
+   "category": "post-production",
+   "cover": "https://cdnb.artstation.com/p/assets/images/images/042/461/837/large/cormac-madden-21103-ballycullen-cgi-d.jpg?1634582253",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/042/461/837/large/cormac-madden-21103-ballycullen-cgi-d.jpg?1634582253"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/042/461/923/large/cormac-madden-killianshouse-cgi-a-rev0.jpg?1634582234"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/042/461/883/large/cormac-madden-20480-abb-cgi-b-revd.jpg?1634582153"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/042/461/876/large/cormac-madden-21051-gardenpods-10m2-cgi-a-reva.jpg?1634582140"
+    }
+   ]
+  },
+  {
+   "hash": "3qZ9km",
+   "slug": "sunset-development",
+   "title": "Sunset Development",
+   "description": "",
+   "software": [
+    "Photoshop"
+   ],
+   "date": "2022-03-29",
+   "category": "arch-viz",
+   "cover": "https://cdnb.artstation.com/p/assets/images/images/047/838/335/large/cormac-madden-abbeyrox-submission-copy2.jpg?1648567874",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/047/838/335/large/cormac-madden-abbeyrox-submission-copy2.jpg?1648567874"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/047/838/346/large/cormac-madden-abbeyrox-submissionbaseline.jpg?1648567686"
+    }
+   ]
+  },
+  {
+   "hash": "49e1On",
+   "slug": "home-office",
+   "title": "Home Office",
+   "description": "Classic isometric render of your workspace, a rite of passage for every budding 3D artist.",
+   "software": [
+    "Blender"
+   ],
+   "date": "2023-09-29",
+   "category": "other",
+   "cover": "https://cdnb.artstation.com/p/assets/images/images/067/715/929/large/cormac-madden-render2.jpg?1696036744",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/067/715/929/large/cormac-madden-render2.jpg?1696036744"
+    }
+   ],
+   "model": "shed-studio"
+  },
+  {
+   "hash": "Jv8xYv",
+   "slug": "concept-audio-workstation",
+   "title": "Concept Audio Workstation",
+   "description": "A concept design that packs the essential hardware of a groovebox and MIDI controller into a new square form factor. Built as practice for hard-surface modelling.",
+   "software": [
+    "Blender"
+   ],
+   "date": "2023-09-26",
+   "category": "product",
+   "cover": "https://cdnb.artstation.com/p/assets/images/images/067/608/273/large/cormac-madden-render5.jpg?1695769844",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/067/608/273/large/cormac-madden-render5.jpg?1695769844"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/067/608/264/large/cormac-madden-render3.jpg?1695769817"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/067/608/268/large/cormac-madden-render4.jpg?1695769832"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/067/608/279/large/cormac-madden-render6.jpg?1695769853"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/067/608/373/large/cormac-madden-render2.jpg?1695770056"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/067/608/367/large/cormac-madden-render1.jpg?1695770048"
+    }
+   ],
+   "model": "concept-audio-workstation"
+  },
+  {
+   "hash": "vDB2r6",
+   "slug": "lerest-concept-chair",
+   "title": "Le'Rest Concept Chair",
+   "description": "Concept chair designed for hanging your legs off the side, with a large sunken seating area and curved sides for back support. The fabric texture was made with a Blender particle system, and the magazine cover artwork in Photoshop.",
+   "software": [
+    "Blender",
+    "Photoshop"
+   ],
+   "date": "2023-08-23",
+   "category": "product",
+   "model": "concept-chair",
+   "cover": "https://cdna.artstation.com/p/assets/images/images/066/390/310/large/cormac-madden-fluff.jpg?1692789084",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/066/390/310/large/cormac-madden-fluff.jpg?1692789084"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/066/390/391/large/cormac-madden-chair-magazine-coverlr.jpg?1692788759"
+    }
+   ]
+  },
+  {
+   "hash": "bl30Wn",
+   "slug": "fixie-bike",
+   "title": "Fixie Bike",
+   "description": "Fixed-gear bike based on a Cinelli frame, with bullhorn handlebars. Random stickers added to the frame to practise texture painting.",
+   "software": [
+    "Blender",
+    "Photoshop"
+   ],
+   "date": "2023-09-29",
+   "category": "product",
+   "model": "bike",
+   "cover": "https://cdna.artstation.com/p/assets/images/images/067/715/032/large/cormac-madden-render11.jpg?1696032666",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/067/715/032/large/cormac-madden-render11.jpg?1696032666"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/067/715/029/large/cormac-madden-render6.jpg?1696032649"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/067/715/224/large/cormac-madden-render12.jpg?1696033389"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/067/715/031/large/cormac-madden-render7.jpg?1696032657"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/067/715/024/large/cormac-madden-render3.jpg?1696032631"
+    }
+   ]
+  },
+  {
+   "hash": "n0bkGe",
+   "slug": "lost-mary-vape",
+   "title": "Lost Mary Disposable Vape",
+   "description": "",
+   "software": [
+    "Blender"
+   ],
+   "date": "2023-10-07",
+   "category": "product",
+   "cover": "https://cdnb.artstation.com/p/assets/covers/images/067/980/979/large/cormac-madden-cormac-madden-icon.jpg?1696694585",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/067/980/840/large/cormac-madden-render3.jpg?1696694363"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/067/980/846/large/cormac-madden-render4.jpg?1696694368"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/067/980/853/large/cormac-madden-render5.jpg?1696694377"
+    }
+   ]
+  },
+  {
+   "hash": "blx6En",
+   "slug": "mandatory-donut",
+   "title": "Mandatory Donut",
+   "description": "A rite of passage. An offering to the guru.",
+   "software": [
+    "Blender"
+   ],
+   "date": "2023-11-15",
+   "category": "other",
+   "cover": "https://cdna.artstation.com/p/assets/images/images/069/422/428/large/cormac-madden-0175.jpg?1700086334",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/069/422/428/large/cormac-madden-0175.jpg?1700086334"
+    }
+   ]
+  },
+  {
+   "hash": "YeP6a3",
+   "slug": "super-soco-motorbike",
+   "title": "Super Soco Motorbike",
+   "description": "Model of a Super Soco TC motorbike. Practice for modelling and texturing.",
+   "software": [
+    "Blender",
+    "Substance 3D Painter"
+   ],
+   "date": "2020-09-02",
+   "category": "product",
+   "cover": "https://cdna.artstation.com/p/assets/images/images/029/935/038/large/cormac-madden-render4-edited-min.jpg?1599078314",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/029/935/038/large/cormac-madden-render4-edited-min.jpg?1599078314"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/029/935/049/large/cormac-madden-render5-edited-min.jpg?1599076803"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/029/935/055/large/cormac-madden-render7-edited-min.jpg?1599076812"
+    }
+   ],
+   "model": "soco-motorbike"
+  },
+  {
+   "hash": "mDDdJy",
+   "slug": "bow-and-arrow",
+   "title": "Bow and Arrow",
+   "description": "Bow and arrow modelled and textured to learn the game-asset development workflow.",
+   "software": [
+    "Blender",
+    "Substance 3D Painter",
+    "Photoshop"
+   ],
+   "date": "2020-07-05",
+   "category": "product",
+   "cover": "https://cdna.artstation.com/p/assets/images/images/028/259/870/large/cormac-madden-render6edited2-jpg.jpg?1593960256",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/028/259/870/large/cormac-madden-render6edited2-jpg.jpg?1593960256"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/028/259/846/large/cormac-madden-render12edited.jpg?1593959535"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/028/259/914/large/cormac-madden-render9edited2.jpg?1593959719"
+    }
+   ]
+  },
+  {
+   "hash": "J9lEgA",
+   "slug": "yamaha-u3-piano",
+   "title": "Yamaha U3 Upright Piano",
+   "description": "A model of my own piano, made to learn the Blender and Substance Painter high-to-low poly workflow.",
+   "software": [
+    "Blender",
+    "Substance 3D Painter"
+   ],
+   "date": "2020-06-19",
+   "category": "product",
+   "cover": "https://cdnb.artstation.com/p/assets/covers/images/027/794/291/large/cormac-madden-cormac-madden-piano-render-1-cc-text-square.jpg?1592562271",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/027/794/180/large/cormac-madden-piano-render-1-cc.jpg?1592562064"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/027/793/957/large/cormac-madden-piano-render-2-cc.jpg?1592561553"
+    }
+   ]
+  },
+  {
+   "hash": "OoDJxe",
+   "slug": "computer-mouse-dcg",
+   "title": "Computer Mouse DCG Project",
+   "description": "Leaving Cert Design Communication Graphics project from 2018: market study, comparison analysis, a study of the R.A.T 5 gaming mouse, then a new concept mouse design with sketching, 3D modelling and rendering.",
+   "software": [
+    "SolidWorks",
+    "InDesign"
+   ],
+   "date": "2020-09-14",
+   "category": "other",
+   "cover": "https://cdnb.artstation.com/p/assets/covers/images/030/260/689/large/cormac-madden-cormac-madden-2018-dcg-computer-mice-project-page-15.jpg?1648575784",
+   "assets": [
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/030/260/332/large/cormac-madden-2018-dcg-computer-mice-project-page-01.jpg?1600088567"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/030/260/347/large/cormac-madden-2018-dcg-computer-mice-project-page-03.jpg?1600088586"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/030/260/360/large/cormac-madden-2018-dcg-computer-mice-project-page-04.jpg?1600088601"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/030/260/369/large/cormac-madden-2018-dcg-computer-mice-project-page-05.jpg?1600088613"
+    },
+    {
+     "type": "image",
+     "image": "https://cdna.artstation.com/p/assets/images/images/030/260/378/large/cormac-madden-2018-dcg-computer-mice-project-page-06.jpg?1600088626"
+    },
+    {
+     "type": "image",
+     "image": "https://cdnb.artstation.com/p/assets/images/images/030/260/431/large/cormac-madden-2018-dcg-computer-mice-project-page-15.jpg?1600088718"
+    }
+   ]
+  }
+ ]
+}

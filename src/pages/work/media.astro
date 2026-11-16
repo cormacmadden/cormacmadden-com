@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import ThemedImage from '../../components/ThemedImage.astro';
+import { site } from '../../data/site';
+import { logos } from '../../data/icons';
+import { artProjects, artstationProfile, artYear } from '../../data/artstation';
+import VideoGrid from '../../components/VideoGrid.astro';
+import { videosBy, vimeoProfile } from '../../data/vimeo';
+
+const hasModel = (slug: string) => artProjects.find((p) => p.slug === slug)?.model !== undefined;
+---
+<Base title="Media & 3D" description="3D modelling, architectural visualisation and post-production.">
+  <h1>Media &amp; 3D</h1>
+  <p class="lead">3D modelling, architectural visualisation and post-production: the visual side that feeds into my real-time work. Some pieces have a 3D model you can spin around.</p>
+
+  <div class="media-grid">
+    {artProjects.map((item) => (
+      <a class="tile" href={`/work/media/${item.slug}`}>
+        <img src={item.cover} alt={item.title} loading="lazy" decoding="async" width="800" height="800" />
+        {hasModel(item.slug) && <span class="badge">3D model</span>}
+        <span class="label"><strong>{item.title}</strong><span class="muted">{artYear(item)}</span></span>
+      </a>
+    ))}
+  </div>
+
+  <p class="actions">
+    <a class="btn secondary" href={artstationProfile}>More on ArtStation</a>
+    <a class="btn secondary" href={site.links.instagram}>Photography on Instagram</a>
+  </p>
+
+  <h2 id="video">Video</h2>
+  <p class="lead">Real-time walk-throughs recorded straight out of Unreal Engine, plus tool demos and property films.</p>
+
+  <h3>Unreal Engine walk-throughs</h3>
+  <VideoGrid videos={videosBy('walkthrough')} />
+
+  <h3>Tool demos</h3>
+  <VideoGrid videos={videosBy('tool')} />
+
+  <h3>Property films</h3>
+  <VideoGrid videos={videosBy('film')} />
+
+  <p class="actions"><a class="btn secondary" href={vimeoProfile}>More on Vimeo</a></p>
+
+  <h2>Selected clients</h2>
+  <p class="muted">Property films and photography through my freelance studio, Kuda Media, including a 32-site portfolio film for BUWOG across Berlin, Hamburg and Vienna.</p>
+  <ul class="clients">
+    <li><ThemedImage src={logos.buwog.src} dark={logos.buwog.dark} alt={logos.buwog.alt} height={64} /></li>
+  </ul>
+</Base>
+
+<style>
+  .media-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); margin-top: 2rem; }
+  .tile { position: relative; display: block; text-decoration: none; color: inherit; }
+  .tile img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); background: var(--border); transition: opacity 0.2s; }
+  .tile:hover img { opacity: 0.85; }
+  .badge { position: absolute; top: 0.5rem; left: 0.5rem; font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 999px; background: var(--accent); color: var(--accent-ink); }
+  .label { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.9rem; margin-top: 0.4rem; }
+  @media (max-width: 40rem) {
+    .media-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+    .label { flex-direction: column; gap: 0; font-size: 0.85rem; }
+  }
+  .clients { display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; padding: 0; }
+  .clients li { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.75rem 1rem; }
+  .clients :global(img) { height: 2rem; width: auto; }
+</style>

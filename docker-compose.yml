@@ -1,0 +1,38 @@
+# Runs the site and the Cloudflare tunnel that puts it on cormacmadden.com.
+#
+#   docker compose --env-file .env up -d --build
+#
+# .env (next to this file, never committed) holds:
+#   TUNNEL_TOKEN=<token from the Cloudflare Zero Trust dashboard>
+# See docs/DEPLOY.md.
+name: cormacmadden-com
+
+services:
+  web:
+    build: .
+    image: cormacmadden-com:latest
+    container_name: cormacmadden-com
+    restart: unless-stopped
+    # Only for reaching the site on the LAN or over Tailscale. Cloudflare reaches
+    # it over the compose network instead, so this can be removed.
+    ports:
+      - "8088:80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cormacmadden-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      # Set in .env. The hostname -> http://web:80 mapping lives in the
+      # Cloudflare dashboard, so this container needs nothing else.
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?set TUNNEL_TOKEN in .env}
+    depends_on:
+      web:
+        condition: service_started

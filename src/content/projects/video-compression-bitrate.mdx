@@ -1,0 +1,39 @@
+---
+title: Choosing streaming bitrates with rate–distortion curves
+summary: A Python + FFmpeg pipeline that encodes a clip at many resolutions and bitrates, measures PSNR and SSIM, and picks the bitrate ladder for adaptive (DASH) streaming.
+lenses: []
+tags: [Video, Python, FFmpeg, Academic]
+tier: 3
+dates: { start: "2022", end: "2023" } # MSc, 2022–23
+role: Solo project
+stack: [Python, FFmpeg, H.264, NumPy, Matplotlib]
+hero:
+  poster: ../../assets/projects/video-compression-bitrate/rd-crossover.png
+  alt: Rate–distortion curves of PSNR against bitrate for 180p, 360p and 720p, with the crossover bitrates circled at 102 and 925 Kbps
+gallery:
+  - src: ../../assets/projects/video-compression-bitrate/pipeline.png
+    alt: "Flow chart: for each resolution and bitrate, encode to H.264, decode losslessly, upscale to 720p, measure PSNR and SSIM, then plot"
+    caption: The pipeline run for every resolution and bitrate.
+  - src: ../../assets/projects/video-compression-bitrate/ssim.png
+    alt: SSIM against bitrate for the three resolutions
+    caption: SSIM tells the same story as PSNR.
+  - src: ../../assets/projects/video-compression-bitrate/128kbps-comparison.jpg
+    alt: The same film frame at 180p and 360p, both at 128 Kbps; the 360p version is visibly blocky
+    caption: "180p (left) vs 360p (right) at 128 Kbps: higher PSNR doesn't always look better."
+  - src: ../../assets/projects/video-compression-bitrate/1024kbps-comparison.jpg
+    alt: The same film frame at 360p and 720p, both at 1024 Kbps
+    caption: 360p (left) vs 720p (right) at 1024 Kbps.
+repo: https://github.com/cormacmadden/Video-Compression-Bitrate-Comparison-using-FFMPEG
+---
+
+Motion Picture Engineering assignment: decide which bitrate each rendition of a streaming ladder should use.
+
+## How it works
+
+A Python script drives FFmpeg for every combination of resolution (180p, 360p, 720p) and bitrate (64 Kbps to 3 Mbps). Each clip is encoded to H.264 with the `slow` preset, decoded back to raw YUV, upscaled to 720p and compared with the original using PSNR and SSIM. The results become rate–distortion curves, and the points where one resolution overtakes the next give the crossover bitrates, about 102 Kbps and 925 Kbps.
+
+## What I chose
+
+- **180p at 96 Kbps (28.5 dB).** 360p scores higher at this bitrate but its block artefacts are far more distracting, the numbers and the eye disagree.
+- **360p at 612 Kbps (39 dB).** Comparable to 720p at the crossover point.
+- **720p at 3 Mbps (~44 dB).** The gain over 2 Mbps is small, but for a high-value feature film the extra bandwidth is worth it.

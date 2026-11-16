@@ -1,0 +1,28 @@
+---
+title: "life_os: a self-hosted personal dashboard"
+summary: A full-stack dashboard that pulls calendar, transport, fitness, finance, smart-home and Spotify data into one screen, deployed to my home server by CI.
+lenses: [digital-twins, tools-pipeline]
+tags: [Full stack, TypeScript, Python, Self-hosting, Personal project]
+tier: 2
+dates: { start: "2025" } # TODO confirm start month
+role: "Solo project: design, frontend, backend and deployment"
+stack: [Next.js, React, TypeScript, FastAPI, Python, SQLModel, SQLite, Docker, GitHub Actions]
+problem: Useful daily information was spread across a dozen apps and services.
+outcome: One dashboard for daily life, rebuilt and redeployed to my home server automatically on every push.
+hero:
+  poster: ../../assets/projects/life-os/dashboard.jpg
+  alt: A dark dashboard with widgets for the week's calendar, bus times, a bus map, weather, smart-home controls, car maintenance, bank balance, mail and Spotify
+repo: https://github.com/cormacmadden/life-os
+related: []
+---
+
+Personal details in the screenshot are blurred.
+
+## What I built
+
+- **Integrations**: a FastAPI backend with a router per service: Google Calendar and Gmail, Stagecoach bus arrivals with a live map, Garmin Connect activity and sleep, Monzo balance history, Home Assistant lights and sensors, Spotify playback, weather, and MOT / tax / service reminders for the car.
+- **Frontend**: a Next.js and React dashboard with Recharts graphs. Widgets are lazy-loaded, which cut the initial bundle from about 800 KB to 250 KB and load time from 3–5 s to 1–2 s.
+- **Data**: SQLModel on SQLite for things the APIs don't store, like plant watering schedules and car maintenance.
+- **Deployment**: a GitHub Actions workflow on a self-hosted runner builds the frontend, builds the Docker images and redeploys them on my home server on every push to `main`. Remote access is set up through a Cloudflare Tunnel.
+
+TODO: one hard problem (e.g. auth for Garmin/Monzo, or home vs remote backend switching) and what's next from the roadmap.

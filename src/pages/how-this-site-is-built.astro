@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="How this site is built" description="Self-hosted static site: Astro, Docker, nginx, GitHub Actions.">
+  <h1>How this site is built</h1>
+  <p class="lead">A static Astro site, built by a self-hosted GitHub Actions runner and served from an nginx container on a mini PC in my flat.</p>
+  <ol>
+    <li>Content lives as one MDX file per project, with typed frontmatter.</li>
+    <li>On push to <code>main</code>, a self-hosted runner builds a Docker image (Node build stage → nginx).</li>
+    <li>The runner redeploys the container through the Portainer API.</li>
+    <li>TODO: public ingress (reverse proxy with TLS or Cloudflare Tunnel).</li>
+  </ol>
+  <p>TODO: architecture diagram.</p>
+</Base>

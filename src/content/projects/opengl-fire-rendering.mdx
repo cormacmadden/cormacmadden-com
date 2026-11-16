@@ -1,0 +1,30 @@
+---
+title: Real-time fire rendering in OpenGL
+summary: Efficient real-time fire using billboarding, texture atlases and additive blending.
+lenses: [real-time-3d]
+tags: [OpenGL, C++, Shaders, Graphics, Academic]
+tier: 3
+dates: { start: "2022", end: "2023" } # MSc, 2022–23
+role: Solo project
+stack: [OpenGL, C++, GLSL]
+hero:
+  video: /media/opengl-fire-rendering/fire.mp4
+  poster: ../../assets/projects/opengl-fire-rendering/fire-poster.jpg
+  alt: Animated fire rendered in real time in OpenGL
+gallery:
+  - src: ../../assets/projects/opengl-fire-rendering/texture-atlas.png
+    alt: Texture atlas holding the frames of the fire animation
+    caption: The fire animation's texture atlas.
+  - src: ../../assets/projects/opengl-fire-rendering/fire-controls.jpg
+    alt: The fire scene with the in-app settings panel for blending, layers and flicker
+    caption: In-app controls for blending, layering and the flickering light.
+video: https://www.youtube.com/watch?v=lJj4MQ-3ojg
+repo: https://github.com/cormacmadden/OpenGL-Fire-Rendering
+---
+
+## What I built
+
+- **Billboarding:** the fire is drawn on a plane that always faces the camera. The shader updates position and scale but not rotation.
+- **Texture atlas animation:** the frames sit in one texture and play in a loop, so it's a single draw call.
+- **Depth and lighting:** layered sprites give an illusion of depth, a flickering orange light ties the fire into the scene, and additive blending brightens the semi-transparent parts.
+- **Controls:** a GUI with sliders for X/Y scale and animation speed, and toggles for the light, blending and layers.

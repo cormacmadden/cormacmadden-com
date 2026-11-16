@@ -1,0 +1,38 @@
+---
+title: Cloth simulation dataset generator
+summary: Blender and Houdini scripts that generate unlimited physics-based cloth simulations to train machine-learning models.
+lenses: [tools-pipeline]
+tags: [Houdini, Blender, Python, Procedural, Machine learning, Academic]
+tier: 2
+dates: { start: "2021", end: "2022" } # BSc final-year project
+role: Solo project (BSc final-year project)
+stack: [Houdini, Blender, Python, SMPL]
+outcome: 600-simulation dataset (100 body shapes × 6 animations)
+hero:
+  poster: ../../assets/projects/cloth-sim-generator/draping.jpg
+  alt: Simulated cloth draped over a generated SMPL body
+gallery:
+  - src: ../../assets/projects/cloth-sim-generator/process.jpg
+    alt: Diagram of the generation pipeline from body shape to cloth simulation
+    caption: Pipeline overview.
+  - src: ../../assets/projects/cloth-sim-generator/houdini-network.jpg
+    alt: Houdini node network that loads bodies, runs the simulation and exports results
+    caption: Houdini network.
+  - src: ../../assets/projects/cloth-sim-generator/deformation.jpg
+    alt: Cloth deformation across different body shapes
+repo: https://github.com/cormacmadden/Cloth-Simulation-Database-Generator
+---
+
+## Context
+
+Machine-learning cloth models need lots of physically correct training data. These two scripts produce it automatically. TODO: what it was for.
+
+## What I built
+
+- **Blender script:** creates a random SMPL body shape, retargets a skeletal animation onto it and exports the animated body, male, female and neutral.
+- **Houdini script:** walks every exported body folder, loads the geometry, runs the cloth simulation and writes the result back beside it.
+- A naming scheme (animation + index + gender) so any simulation can be traced back to its inputs.
+
+## Result
+
+A dataset of 600 simulations from 100 body shapes in 6 animations, split 500 / 20 / 80 into training, validation and test.

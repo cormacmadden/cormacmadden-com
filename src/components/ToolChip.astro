@@ -1,0 +1,23 @@
+---
+/** A tool or language tag: its logo when there is one, otherwise the name. */
+import ThemedImage from './ThemedImage.astro';
+import { toolIcon } from '../data/icons';
+interface Props { name: string }
+const { name } = Astro.props;
+const icon = toolIcon(name);
+---
+{icon ? (
+  <li class="chip icon-chip" title={name}>
+    <ThemedImage class="tool-icon" src={icon.src} dark={icon.dark} alt="" height={48} />
+    <span class="visually-hidden">{name}</span>
+  </li>
+) : (
+  <li class="chip">{name}</li>
+)}
+
+<style>
+  /* Same box as a text chip: icon is one line of text tall. */
+  .icon-chip { display: inline-flex; align-items: center; justify-content: center; min-height: 1.6em; }
+  .icon-chip :global(picture) { display: contents; }
+  .icon-chip :global(.tool-icon) { width: 1.15em; height: 1.15em; object-fit: contain; }
+</style>

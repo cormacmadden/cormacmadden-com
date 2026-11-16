@@ -1,0 +1,170 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Timeline from '../components/Timeline.astro';
+import ToolChip from '../components/ToolChip.astro';
+import { site } from '../data/site';
+import { lenses } from '../data/lenses';
+import { artProjects, artYear } from '../data/artstation';
+import heroImage from '../assets/hero.jpg';
+import portrait from '../assets/portrait.webp';
+
+const all = await getCollection('projects', ({ data }) => !data.draft);
+const art = artProjects.filter((p) => p.model).concat(artProjects.filter((p) => !p.model)).slice(0, 4);
+const featured = site.featured
+  .map((slug) => all.find((p) => p.id === slug))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+---
+<Base>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="kicker">Real-time 3D developer</p>
+      <h1>{site.name.split(' ').map((word, i) => (<>{i > 0 && <br />}{word}</>))}</h1>
+      <p class="lead">{site.hero}</p>
+      <div class="actions">
+        <a class="btn" href="/work">See my work</a>
+        <a class="btn secondary" href="#contact">Get in touch</a>
+      </div>
+      <ul class="chips">{site.keywords.map((k) => <ToolChip name={k} />)}</ul>
+      <p class="location muted">{site.location}</p>
+    </div>
+
+    <div class="hero-media">
+      <Image class="hero-img" src={heroImage} alt="A bare aluminium car body under an inspection light tunnel" widths={[700, 1100, 1600]} sizes="(max-width: 62rem) 100vw, 60vw" loading="eager" fetchpriority="high" />
+      <Image class="hero-portrait" src={portrait} alt="Cormac Madden" widths={[180, 360]} sizes="9rem" loading="eager" />
+    </div>
+  </section>
+
+  <h2>Explore by focus</h2>
+  <div class="grid">
+    {Object.values(lenses).map((l) => (
+      <a class="lens" href={`/${l.id}`}>
+        <Image class="lens-img" src={l.image.src} alt={l.image.alt} widths={[400, 800]} sizes="(max-width: 40rem) 100vw, 22rem" loading="lazy" />
+        <span class="lens-title">{l.title}</span>
+      </a>
+    ))}
+  </div>
+
+  <h2>Featured work</h2>
+  <div class="grid">{featured.map((p) => <ProjectCard project={p} />)}</div>
+
+  <h2>3D artwork</h2>
+  <p class="muted">Product concepts, interiors and arch-viz, some with a 3D model you can spin around.</p>
+  <div class="art-grid">
+    {art.map((p) => (
+      <a class="art-tile" href={`/work/media/${p.slug}`}>
+        <img src={p.cover} alt={p.title} loading="lazy" decoding="async" width="600" height="600" />
+        {p.model && <span class="badge">3D model</span>}
+        <span class="label"><strong>{p.title}</strong><span class="muted">{artYear(p)}</span></span>
+      </a>
+    ))}
+  </div>
+  <p class="actions"><a class="btn secondary" href="/work/media">All media &amp; 3D</a></p>
+
+  <h2>Experience</h2>
+  <Timeline kind="work" />
+
+  <h2>Education</h2>
+  <Timeline kind="education" />
+
+  <h2 id="contact">Contact</h2>
+  <p>
+    The quickest way to reach me is on <a href={site.links.linkedin}>LinkedIn</a>.
+    {site.email && <> Or email <a href={`mailto:${site.email}`}>{site.email}</a>.</>}
+  </p>
+</Base>
+
+<style>
+  /* Hero: name on the left, a greyed factory shot on the right, portrait floating between them. */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 60%; /* image takes 0.6 of the hero width */
+    align-items: center;
+    gap: 3rem;
+    margin: 0 0 4.5rem;
+    min-height: min(80vh, 40rem);
+  }
+  .hero-copy { padding-block: 3rem; }
+  .kicker { margin: 0 0 0.9rem; font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .hero-copy h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); margin: 0 0 1.1rem; }
+  .hero-copy .lead { max-width: 30rem; }
+  .hero-copy .actions { margin-block: 1.75rem 1.5rem; }
+  .hero-copy .chips { max-width: 27rem; }
+  .hero-copy .location { font-size: 0.9rem; margin: 1.25rem 0 0; }
+
+  /* Wide landscape crop: trims ceiling and floor, keeps the whole car body. */
+  .hero-media { position: relative; align-self: center; display: flex; isolation: isolate; }
+  /* Very soft neutral glow behind the photo for a bit of depth (no accent colour). */
+  .hero-media::before {
+    content: '';
+    position: absolute;
+    /* Box stays within the image's width; the blur spreads it sideways as paint-only overflow, so no sideways scroll. */
+    inset: -12% 0;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--glow), transparent);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .hero-media :global(.hero-img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: 50% 60%;
+    border-radius: var(--radius);
+    /* Greyed back so the type beside it stays the loudest thing on the page. */
+    filter: grayscale(0.75) contrast(0.95) brightness(0.9);
+  }
+  .hero-media :global(.hero-portrait) {
+    position: absolute;
+    /* Inside the image's top-right corner so it can't run off the page. */
+    right: 1.5rem;
+    top: 1.5rem;
+    width: 9rem;
+    height: 9rem;
+    border-radius: 50%;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    background: var(--surface);
+    animation: float 7s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-media :global(.hero-portrait) { animation: none; }
+  }
+
+  @media (max-width: 62rem) {
+    .hero { grid-template-columns: 1fr; gap: 1.5rem; min-height: 0; margin-bottom: 3rem; }
+    .hero-copy { padding-block: 0; order: 2; }
+    .hero-media { order: 1; }
+    .hero-media :global(.hero-img) { min-height: 16rem; max-height: 22rem; }
+    .hero-media :global(.hero-portrait) { right: 1rem; top: 1rem; width: 6rem; height: 6rem; }
+  }
+
+  /* Focus cards: image with the title over it, nothing else. */
+  .lens { position: relative; display: block; overflow: hidden; border-radius: var(--radius); text-decoration: none; color: #fff; aspect-ratio: 4 / 3; background: var(--border); }
+  .lens :global(.lens-img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  .lens::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8, 8, 9, 0.85) 0%, rgba(8, 8, 9, 0.35) 45%, rgba(8, 8, 9, 0.05) 100%); }
+  .lens:hover :global(.lens-img) { transform: scale(1.04); }
+  .lens-title { position: absolute; left: 1rem; right: 1rem; bottom: 0.9rem; z-index: 1; font-size: 1.15rem; font-weight: 600; }
+
+  .art-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+  .art-tile { position: relative; display: block; text-decoration: none; color: inherit; }
+  .art-tile img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); background: var(--border); transition: opacity 0.2s; }
+  .art-tile:hover img { opacity: 0.85; }
+  .art-tile .badge { position: absolute; top: 0.5rem; left: 0.5rem; font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 999px; background: rgba(8, 8, 9, 0.75); color: #fff; }
+  .art-tile .label { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.9rem; margin-top: 0.4rem; }
+  @media (max-width: 40rem) {
+    .hero-media :global(.hero-img) { min-height: 0; aspect-ratio: 16 / 10; }
+    .hero-copy .actions { margin-block: 1.25rem 1rem; }
+    .hero-copy .actions .btn { flex: 1 1 auto; text-align: center; }
+    .lens { aspect-ratio: 16 / 9; }
+    .art-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+    .art-tile .label { flex-direction: column; gap: 0; font-size: 0.85rem; }
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+title: Detecting strawberries and their ripeness
+summary: Fine-tuned Mask R-CNN that finds strawberries and classifies them as ripe, unripe or partially ripe.
+lenses: []
+tags: [Computer vision, PyTorch, Machine learning, Academic]
+tier: 3
+dates: { start: "2022", end: "2023" } # MSc, 2022–23
+role: Solo project
+stack: [Python, PyTorch, torchvision, Mask R-CNN]
+hero:
+  poster: ../../assets/projects/strawberry-ripeness/results.jpg
+  alt: Detected strawberries with masks and ripeness labels
+gallery:
+  - src: ../../assets/projects/strawberry-ripeness/training-data.jpg
+    alt: Training images with instance and ripeness masks
+    caption: "Training data: colour channels encode ripe, unripe and partially ripe."
+repo: https://github.com/cormacmadden/Detecting-Strawberries-and-their-Ripeness-from-Images-using-Machine-Learning
+---
+
+Computer Vision module assignment. A Mask R-CNN pre-trained on COCO was fine-tuned on 3,000 labelled images for 6 epochs (about 4.5 hours on a GTX 970). A custom PyTorch Dataset builds bounding boxes from the segmentation masks and randomly flips training images. On one test image it found a strawberry smaller than 10×10 pixels.

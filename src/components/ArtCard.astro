@@ -1,0 +1,34 @@
+---
+/** Card for a Media & 3D (ArtStation) post, styled to sit alongside ProjectCard in a grid. */
+import type { ArtProject } from '../data/artstation';
+interface Props { art: ArtProject }
+const { art } = Astro.props;
+const categoryLabel: Record<ArtProject['category'], string> = {
+  'arch-viz': 'Arch-viz',
+  product: 'Product design',
+  'post-production': 'Post-production',
+  other: '3D',
+};
+// First sentence of the ArtStation text as the card summary.
+const summary = (art.description.match(/^.*?[.!?](\s|$)/)?.[0] ?? art.description).trim();
+const tags = [categoryLabel[art.category], ...art.software].slice(0, 4);
+---
+<article class="card art-card">
+  <div class="thumb">
+    <img src={art.cover} alt={art.title} loading="lazy" decoding="async" width="800" height="450" />
+  </div>
+  <h3><a href={`/work/media/${art.slug}`}>{art.title}</a></h3>
+  <p class="muted">{summary}</p>
+  <ul class="chips">{tags.map((t) => <li class="chip">{t}</li>)}</ul>
+</article>
+
+<style>
+  h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+  h3 a { color: inherit; text-decoration: none; }
+  h3 a::after { content: ''; position: absolute; inset: 0; }
+  .art-card { position: relative; }
+  .art-card:hover { border-color: var(--accent); }
+  .thumb { position: relative; width: calc(100% + 2.5rem); margin: -1.25rem -1.25rem 1rem; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; background: var(--border); }
+  .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+  p { margin: 0; }
+</style>

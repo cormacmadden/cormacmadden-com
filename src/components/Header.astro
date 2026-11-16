@@ -1,0 +1,28 @@
+---
+import { site } from '../data/site';
+const path = Astro.url.pathname;
+---
+<header class="container site-header">
+  <a class="home" href="/" aria-label={`${site.name}, home`} title="Home">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 10.5 12 3.5l9 7" />
+      <path d="M5.5 9.5V20h13V9.5" />
+      <path d="M9.75 20v-5.5h4.5V20" />
+    </svg>
+  </a>
+  <nav aria-label="Main">
+    {site.nav.map((item) => (
+      <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  .site-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: 0.75rem; }
+  /* 44px touch targets; negative margins keep the visual alignment. */
+  .home { display: inline-flex; padding: 0.7rem; margin: -0.7rem; border-radius: 8px; color: var(--text); text-decoration: none; }
+  .home:hover { background: var(--accent-soft); }
+  nav { display: flex; gap: 0.5rem; margin-right: -0.6rem; }
+  nav a { color: var(--muted); text-decoration: none; padding: 0.6rem; }
+  nav a:hover, nav a[aria-current='page'] { color: var(--text); }
+</style>

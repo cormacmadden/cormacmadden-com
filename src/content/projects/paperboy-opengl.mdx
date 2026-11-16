@@ -1,0 +1,36 @@
+---
+title: Paperboy on a custom OpenGL engine
+summary: A remake of the arcade game Paperboy, built on my own small OpenGL engine.
+lenses: [real-time-3d]
+tags: [OpenGL, C++, Game engine, Graphics, Academic]
+tier: 3
+dates: { start: "2022", end: "2023" } # MSc, 2022–23
+role: Solo project
+stack: [OpenGL, C++, GLSL, Assimp, Blender]
+hero:
+  video: /media/paperboy-opengl/paperboy.mp4
+  poster: ../../assets/projects/paperboy-opengl/paperboy-poster.jpg
+  alt: Gameplay of the Paperboy remake
+gallery:
+  - src: ../../assets/projects/paperboy-opengl/isometric.jpg
+    alt: Isometric view of the street
+  - src: ../../assets/projects/paperboy-opengl/fpv.jpg
+    alt: First-person view from the bike
+  - src: ../../assets/projects/paperboy-opengl/lighting.jpg
+    alt: Lighting in the scene
+  - src: ../../assets/projects/paperboy-opengl/fog.jpg
+    alt: Distance fog
+  - src: ../../assets/projects/paperboy-opengl/skysphere.jpg
+    alt: Sky sphere
+  - src: ../../assets/projects/paperboy-opengl/texturing.jpg
+    alt: Textured models
+video: https://www.youtube.com/watch?v=JIYxIeUEjpk
+repo: https://github.com/cormacmadden/Paperboy-Custom-Game-Engine-OpenGL
+---
+
+## What I built
+
+- Model and mesh classes, so imported models are made of meshes that can be moved relative to the whole model.
+- Model loading with Assimp. I modelled the bike, houses, post boxes, street and hedges in Blender and exported them as .obj.
+- Gameplay classes for the paperboy and newspapers, using the original controls: WASD to steer, Q and E to throw left and right.
+- Lighting, fog, a sky sphere and texturing.

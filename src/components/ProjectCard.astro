@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const { title, summary, tags, hero, gallery } = project.data;
+const thumb = hero?.poster ?? gallery[0]?.src;
+const thumbAlt = hero?.poster ? hero.alt : gallery[0]?.alt ?? '';
+const video = hero?.video;
+---
+<article class="card project-card" data-tags={tags.join('|')}>
+  {thumb && (
+    <div class="thumb">
+      <Image src={thumb} alt={thumbAlt} widths={[400, 800]} sizes="(max-width: 40rem) 100vw, 22rem" loading="lazy" />
+      {video && (
+        <video class="preview" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" hidden>
+          <source src={video} type="video/mp4" />
+        </video>
+      )}
+    </div>
+  )}
+  <h3><a href={`/work/${project.id}`}>{title}</a></h3>
+  <p class="muted">{summary}</p>
+  <ul class="chips">{tags.slice(0, 4).map((t) => <li class="chip">{t}</li>)}</ul>
+</article>
+
+<script>
+  // Play the card's hero clip while it's hovered or focused. Poster image shows otherwise.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLElement>('.project-card').forEach((card) => {
+    const video = card.querySelector<HTMLVideoElement>('video.preview');
+    if (!video) return;
+    const still = card.querySelector<HTMLImageElement>('.thumb img');
+    // Only ever show one of the two: the still, or the playing clip.
+    const show = (playing: boolean) => {
+      video.hidden = !playing;
+      if (still) still.hidden = playing;
+    };
+    const start = () => {
+      if (reduceMotion.matches) return;
+      video.play().then(() => {
+        if (card.matches(':hover, :focus-within')) show(true);
+        else video.pause();
+      }).catch(() => show(false));
+    };
+    const stop = () => {
+      video.pause();
+      show(false);
+    };
+    card.addEventListener('mouseenter', start);
+    card.addEventListener('mouseleave', stop);
+    card.addEventListener('focusin', start);
+    card.addEventListener('focusout', stop);
+  });
+</script>
+
+<style>
+  h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+  h3 a { color: inherit; text-decoration: none; }
+  h3 a::after { content: ''; position: absolute; inset: 0; }
+  .project-card { position: relative; }
+  .project-card:hover { border-color: var(--accent); }
+  .thumb { position: relative; width: calc(100% + 2.5rem); margin: -1.25rem -1.25rem 1rem; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; background: var(--border); }
+  /* Still and clip fill the same 16:9 box; the script shows one at a time. */
+  .thumb :global(img), .thumb :global(video) { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+  .thumb :global([hidden]) { display: none; }
+  p { margin: 0; }
+</style>

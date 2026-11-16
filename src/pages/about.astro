@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+// DRAFT: written by Claude for Cormac to review. Edit freely.
+---
+<Base title="About" description="About Cormac Madden: real-time 3D developer based in Leamington Spa, originally from Dublin.">
+  <h1>About</h1>
+  <p class="lead">
+    I'm a real-time 3D developer from Dublin, now based in Leamington Spa. I build software that takes
+    real-world data (factory systems, sensors, tracked people) and turns it into something you can walk around in.
+  </p>
+
+  <h2>How I got here</h2>
+  <p>
+    I started out behind a camera. As a teenager I set up a small freelance business, Kuda Media, shooting video and
+    photos of properties. Clients kept asking for buildings that didn't exist yet, so I learned 3D to show them, and
+    spent the next few years on architectural visualisation: rendering, compositing and 360° tours.
+  </p>
+  <p>
+    A summer in Berlin at Beyonity moved me from offline rendering into Unreal Engine, once it was clear a game engine
+    could turn out the same quality of video in a fraction of the time. That was the point I got more interested in how
+    the engine worked than in what it produced, so I studied Computer Science &amp; Business at Trinity College Dublin,
+    then an MSc in Augmented &amp; Virtual Reality.
+  </p>
+  <p>
+    During the MSc I worked at Algorithm, a virtual production studio, building a head-tracked LED wall with Unreal nDisplay
+    and an Azure Kinect. Since 2024 I've been at JLR, building digital twins of its factories in Unity and NVIDIA Omniverse
+    and the pipelines that feed them.
+  </p>
+  <p>
+    Coming from media means I care about how things look and read, not just whether they run. Most of my work sits
+    between the two: making the engineering data correct and the 3D clear enough that people actually use it.
+  </p>
+
+  <h2>Languages</h2>
+  <ul>
+    <li>English: native</li>
+    <li>German: B1</li>
+    <li>French: basic</li>
+    <li>Irish</li>
+  </ul>
+
+  <h2>Photography</h2>
+  <p>
+    Photography started as the visual side of my freelance work and stayed a hobby: mostly landscapes, cities and
+    drone shots, some of them on <a href={site.links.instagram}>Instagram</a>.
+  </p>
+  <p class="actions"><a class="btn secondary" href={site.links.instagram}>Instagram @cormacmadden</a></p>
+
+  <h2>Outside work</h2>
+  <p>
+    I've spent winters working ski seasons in the Alps and snowboard whenever I can. The rest of the year it's the gym,
+    running, piano, and whatever I'm modelling in Blender that week.
+  </p>
+
+  <h2>Get in touch</h2>
+  <p>
+    Email <a href={`mailto:${site.email}`}>{site.email}</a> or message me on <a href={site.links.linkedin}>LinkedIn</a>.
+  </p>
+</Base>

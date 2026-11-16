@@ -1,0 +1,52 @@
+---
+title: Kinect body tracking plugin for Unreal Engine 5
+summary: Open-source UE5 plugin that brings Azure Kinect depth, colour and body tracking into Unreal.
+lenses: [real-time-3d]
+tags: [Unreal Engine, C++, Computer vision, Open source]
+tier: 1
+dates: { start: "2023-01", end: "2023-09" }
+role: Maintainer of an updated fork of nama-gatsu's Azure Kinect plugin # TODO check wording
+stack: [Unreal Engine 5.2, C++, Azure Kinect SDK 1.4.1, Azure Kinect Body Tracking SDK 1.1.0, Niagara]
+outcome: "34★ on GitHub" # TODO update
+hero:
+  video: /media/kinect-ue5-plugin/hero.mp4
+  poster: ../../assets/projects/kinect-ue5-plugin/hero-poster.jpg
+  alt: Azure Kinect body tracking driving a character in Unreal Engine 5
+clips:
+  - src: /media/kinect-ue5-plugin/in-editor.mp4
+    poster: ../../assets/projects/kinect-ue5-plugin/in-editor-poster.jpg
+    alt: Kinect depth and colour feeds rendering into render targets in the Unreal editor
+    caption: "In-editor activation: depth and colour written into RenderTarget2Ds."
+  - src: /media/kinect-ue5-plugin/animation.mp4
+    poster: ../../assets/projects/kinect-ue5-plugin/animation-poster.jpg
+    alt: Niagara particle system driven by the Kinect feed
+    caption: Niagara particles driven by the Kinect.
+gallery:
+  - src: ../../assets/projects/kinect-ue5-plugin/blueprint.png
+    alt: Blueprint nodes that start the Kinect device
+    caption: Blueprint activation.
+  - src: ../../assets/projects/kinect-ue5-plugin/animgraph.jpg
+    alt: Animation Blueprint graph mapping Kinect joints to a skeleton
+    caption: Skeleton tracking in the Animation Blueprint.
+repo: https://github.com/cormacmadden/Kinect-Body-Tracking-Unreal-Engine-Plugin
+---
+
+## Context
+
+An updated version of nama-gatsu's Azure Kinect plugin for Unreal Engine, brought up to UE 5.2 so the Kinect can drive characters, particles and materials in real time. TODO: why you needed it (Algorithm / MSc).
+
+## What I built
+
+- Fixed the binary-import issues that stopped the original plugin loading in UE5.
+- Added root translation to skeletal tracking, so tracked bodies move through the scene rather than staying pinned in place.
+- TODO: anything else that was yours.
+
+The plugin exposes depth and colour buffers as render targets in the editor, can be started from Blueprints, drives Niagara particle systems, and maps tracked joints onto a skeleton in the Animation Blueprint.
+
+## The hard problem
+
+TODO: one challenge and how I solved it.
+
+## Result and what I'd do next
+
+TODO

@@ -1,0 +1,22 @@
+---
+import ThemedImage from './ThemedImage.astro';
+import { site } from '../data/site';
+import { social } from '../data/icons';
+const links = Object.entries(site.links).filter(([key, href]) => href && social[key]);
+---
+<ul class="social">
+  {links.map(([key, href]) => (
+    <li>
+      <a href={href} rel="me noopener" aria-label={social[key].label} title={social[key].label}>
+        <ThemedImage src={social[key].src} dark={social[key].dark} alt="" height={48} />
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .social { display: flex; gap: 0.15rem; list-style: none; padding: 0; margin: 0 0 0 -0.6rem; }
+  .social a { display: block; padding: 0.6rem; opacity: 0.75; transition: opacity 0.15s; }
+  .social a:hover, .social a:focus-visible { opacity: 1; }
+  .social :global(img) { width: 1.5rem; height: 1.5rem; object-fit: contain; }
+</style>

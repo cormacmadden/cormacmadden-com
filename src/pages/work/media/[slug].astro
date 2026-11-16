@@ -1,0 +1,124 @@
+---
+import Base from '../../../layouts/Base.astro';
+import ModelViewer from '../../../components/ModelViewer.astro';
+import ToolChip from '../../../components/ToolChip.astro';
+import { artProjects, artUrl, artYear, type ArtProject } from '../../../data/artstation';
+import { models } from '../../../data/models';
+
+export function getStaticPaths() {
+  return artProjects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+interface Props { project: ArtProject }
+const { project } = Astro.props;
+const model = project.model ? models.find((m) => m.id === project.model) : undefined;
+const videos = project.assets.filter((a) => a.type === 'video' && a.embed);
+const images = project.assets.filter((a) => a.type === 'image');
+const related = artProjects.filter((p) => p.slug !== project.slug && p.category === project.category).slice(0, 3);
+---
+<Base title={project.title} description={project.description || `${project.title}, 3D work by Cormac Madden.`}>
+  <article class="art">
+    <p class="muted"><a href="/work/media">← Media &amp; 3D</a></p>
+    <h1>{project.title}</h1>
+    {project.description && <p class="lead">{project.description}</p>}
+
+    <dl class="meta">
+      <div><dt>Year</dt><dd>{artYear(project)}</dd></div>
+      {project.software.length > 0 && (
+        <div>
+          <dt>Made with</dt>
+          <dd><ul class="chips">{project.software.map((s) => <ToolChip name={s} />)}</ul></dd>
+        </div>
+      )}
+    </dl>
+
+    {model && (
+      <section>
+        <h2>Spin it around</h2>
+        <ModelViewer model={model} caption={false} />
+      </section>
+    )}
+
+    {videos.length > 0 && (
+      <section class="videos">
+        {videos.map((v) => (
+          <div class="embed">
+            <iframe src={v.embed} title={v.title ?? project.title} loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {images.length > 0 && (
+      <section class="shots">
+        {images.map((a, i) => (
+          <a class="shot" href={a.image} target="_blank" rel="noopener" aria-label={`Open image ${i + 1} full size`}>
+            <img src={a.image} alt={`${project.title}: image ${i + 1}`} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+          </a>
+        ))}
+      </section>
+    )}
+
+    <p class="actions">
+      {project.hash && <a class="btn secondary" href={artUrl(project.hash)} rel="noopener">View on ArtStation</a>}
+      <a class="btn secondary" href="/work/media">All media &amp; 3D</a>
+    </p>
+
+    {related.length > 0 && (
+      <section>
+        <h2>More like this</h2>
+        <div class="media-grid">
+          {related.map((p) => (
+            <a class="tile" href={`/work/media/${p.slug}`}>
+              <img src={p.cover} alt={p.title} loading="lazy" decoding="async" width="800" height="800" />
+              <span class="label"><strong>{p.title}</strong><span class="muted">{artYear(p)}</span></span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </article>
+</Base>
+
+<script>
+  // Masonry-ish grid: every image keeps its aspect ratio and claims the rows it needs.
+  const ROW = 8; // px, matches grid-auto-rows
+  const GAP = 12; // px, matches the gap
+  const layout = () => {
+    document.querySelectorAll<HTMLElement>('.shots .shot').forEach((shot) => {
+      const img = shot.querySelector('img');
+      if (!img?.naturalWidth) return;
+      const ratio = img.naturalWidth / img.naturalHeight;
+      shot.classList.toggle('wide', ratio > 1.7);
+      const height = shot.getBoundingClientRect().width / ratio;
+      shot.style.gridRowEnd = `span ${Math.max(1, Math.round((height + GAP) / (ROW + GAP)))}`;
+    });
+  };
+  document.querySelectorAll<HTMLImageElement>('.shots .shot img').forEach((img) => {
+    if (img.complete && img.naturalWidth) layout();
+    else img.addEventListener('load', layout, { once: true });
+  });
+  addEventListener('resize', layout);
+</script>
+
+<style>
+  .meta { display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; margin: 1.5rem 0 0; }
+  .meta dt { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  .meta dd { margin: 0.35rem 0 0; }
+  .meta .chips { margin: 0; }
+  .videos { display: grid; gap: 1rem; }
+  .embed { position: relative; aspect-ratio: 16 / 9; }
+  .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; border-radius: var(--radius); background: var(--border); }
+  /* Masonry grid: images keep their own aspect ratio; the script below sets each row span. */
+  .shots { display: grid; gap: 12px; margin-top: 2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); grid-auto-rows: 8px; }
+  .shot { display: block; grid-row-end: span 30; border-radius: var(--radius); overflow: hidden; background: var(--border); }
+  .shot img { display: block; width: 100%; height: auto; transition: opacity 0.2s; }
+  .shot:hover img { opacity: 0.92; }
+  .shot.wide { grid-column: span 2; }
+  @media (max-width: 40rem) { .shot.wide { grid-column: span 1; } }
+  .media-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+  .tile { display: block; text-decoration: none; color: inherit; }
+  .tile img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); background: var(--border); transition: opacity 0.2s; }
+  .tile:hover img { opacity: 0.85; }
+  .label { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.9rem; margin-top: 0.4rem; }
+</style>

@@ -1,0 +1,28 @@
+---
+/**
+ * An image with an optional dark-mode variant. Logos and icons are mostly dark
+ * artwork on transparent backgrounds, so dark mode swaps in a light version.
+ */
+import type { ImageMetadata } from 'astro';
+import { Image, getImage } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  dark?: ImageMetadata;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+}
+const { src, dark, alt, width, height, class: className } = Astro.props;
+const size = width ? { width } : height ? { height } : {};
+const darkImg = dark ? await getImage({ src: dark, ...size }) : undefined;
+---
+{darkImg ? (
+  <picture>
+    <source srcset={darkImg.src} media="(prefers-color-scheme: dark)" />
+    <Image class={className} src={src} alt={alt} {...size} />
+  </picture>
+) : (
+  <Image class={className} src={src} alt={alt} {...size} />
+)}

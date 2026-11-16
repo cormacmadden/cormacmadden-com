@@ -1,0 +1,19 @@
+---
+title: Detecting car speed from video
+summary: Estimating a car's speed from video by tracking how its licence plate grows, written in C++ with OpenCV.
+lenses: []
+tags: [Computer vision, C++, OpenCV, Academic]
+tier: 3
+dates: { start: "2022", end: "2023" } # MSc, 2022–23
+role: Solo project
+stack: [C++, OpenCV]
+hero:
+  video: /media/car-speed-from-video/car-speed.mp4
+  poster: ../../assets/projects/car-speed-from-video/car-speed-poster.jpg
+  alt: Side-by-side video of an approaching car and the colour-segmented mask used to find its licence plate
+repo: https://github.com/cormacmadden/Detecting-Car-Speed-From-Video
+---
+
+A licence plate has a known real-world size, so the rate at which it grows in the frame gives the car's distance over time, and from that, its speed. The video shows each frame alongside the segmentation used to isolate the car and plate.
+
+TODO: add the steps (segmentation method, plate detection, how size maps to distance) and how accurate the estimates were.
