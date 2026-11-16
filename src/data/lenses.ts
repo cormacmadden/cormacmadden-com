@@ -31,7 +31,7 @@ export const lenses: Record<LensId, Lens> = {
     title: 'Digital twins',
     kicker: 'Industrial 3D · Unity · Omniverse / USD · Web 3D',
     intro:
-      'Connecting live factory and engineering data to real-time 3D so people can see, test and plan in context. TODO: expand.',
+      'Factories generate enormous amounts of data and almost none of it looks like the place it came from. I build the layer in between: engineering CAD and live line telemetry turned into a 3D model of the plant that people can walk through, query and replay, in a browser rather than on a workstation.',
     projects: ['jlr-digital-twin', 'life-os'],
     image: { src: digitalTwinsImg, alt: 'Car bodies moving along an automated assembly line' },
     // Keep this NDA-safe: no internal tool names, colleagues, data, figures or unreleased models.
@@ -86,7 +86,7 @@ export const lenses: Record<LensId, Lens> = {
     title: 'Real-time 3D & XR',
     kicker: 'Unreal · XR · Virtual production · Simulation',
     intro:
-      'Interactive experiences in Unreal Engine and XR, from head-tracked LED walls to driving simulators. TODO: expand.',
+      'Real-time rendering put to work rather than shipped as a game: LED walls that render for where the viewer is standing, simulators that put a person in a car that does not exist yet, and headsets that drop a model into the room. Mostly Unreal Engine and Unity, usually with a camera or a tracker feeding them.',
     projects: ['head-tracked-led-wall', 'kinect-ue5-plugin', 'jlr-driving-simulator', 'media/hamilton-gardens-apartment-tour', 'media/berlin-penthouse-apartment', 'ai-art-gallery-vr', 'hololens-games'],
     image: { src: realTime3dImg, alt: 'Inside the VR AI art gallery: a bright white gallery space under a glass roof' },
   },
@@ -94,7 +94,7 @@ export const lenses: Record<LensId, Lens> = {
     id: 'tools-pipeline',
     title: 'Tools & pipeline',
     kicker: 'Tech art · Omniverse extensions · Automation',
-    intro: 'Tools that make 3D teams faster: Omniverse extensions, asset CLIs and procedural generators. TODO: expand.',
+    intro: 'The unglamorous half of real-time 3D. Heavy CAD has to be optimised before it renders, assets have to move between a dozen formats without being touched by hand, and datasets have to be generated rather than modelled. These are the Omniverse extensions, pipelines and procedural tools I have written to make that happen on its own.',
     projects: ['jlr-digital-twin', 'cloth-sim-generator', 'life-os'],
     image: { src: toolsPipelineImg, alt: 'A factory scene open in NVIDIA Omniverse USD Explorer, with the USD layer stack on the right' },
   },

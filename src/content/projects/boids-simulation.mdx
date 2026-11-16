@@ -6,11 +6,11 @@ tags: [Simulation, Animation, Graphics, Academic]
 tier: 3
 dates: { start: "2022", end: "2023" } # MSc, 2022–23
 role: Solo project
-stack: [OpenGL, C++] # TODO confirm
+stack: [OpenGL, C++]
 hero:
   video: /media/boids-simulation/seals.mp4
   poster: ../../assets/projects/boids-simulation/seals-poster.jpg
   alt: A group of seals swimming together between icebergs, seen from under the water
 ---
 
-TODO: 2–3 sentences: the boids rules used (separation, alignment, cohesion), how many agents run in real time, and any obstacle avoidance around the ice. Add the repo link.
+Built for the Computer Animation module of the MSc. Each seal steers by three rules applied to the neighbours it can see: keep apart, match their heading, and move towards the middle of the group. Nothing choreographs the flock. The shoaling, splitting around the ice and re-forming behind it all fall out of those rules running per-agent, every frame.

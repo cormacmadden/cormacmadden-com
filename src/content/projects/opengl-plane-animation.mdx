@@ -13,4 +13,4 @@ hero:
   alt: A yellow propeller plane flying over snowy mountains and clouds
 ---
 
-Built for the Computer Animation module of the MSc. TODO: 2–3 sentences on the techniques (e.g. hierarchical transforms for the propeller and control surfaces, camera follow, skybox) and add the repo link.
+Built for the Computer Animation module of the MSc. The plane is a hierarchy rather than one object: the propeller spins in the hub's space, the control surfaces hinge in the wing's, and each inherits the fuselage's motion, so the whole thing moves as one body while its parts keep their own rotation. A camera follows the plane along its flight path, and the mountains and sky are drawn as a skybox so the horizon stays put however far it flies.

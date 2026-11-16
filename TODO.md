@@ -3,23 +3,43 @@
 Running list of things to fill in or fix. Tick items off as they're done (`[x]`).
 Placeholders in the site are marked `TODO` in the source; this list is the overview.
 
+## Check before a recruiter reads it
+
+Claude filled every TODO in the case studies on 2026-11-16, working from the CV, the JLR work
+catalog, the LinkedIn PDF and the repo READMEs. Anything it could not source is listed under
+"Still unanswered" below. These are the lines that came from inference rather than a document —
+they read as fact on the site, so give them a once-over:
+
+- [ ] **JLR digital twin** — architecture section describes the flow as Process Simulate / 3DExperience → Omniverse + USD → Unity → React, with MES and FACMON layered on. Check that's the real shape of it
+- [ ] **JLR digital twin** — the hard problem is written as CAD being too heavy to render in real time, solved by splitting into process cells, automating optimisation and benchmarking zones. That's assembled from the work catalog, not something you said
+- [ ] **JLR digital twin** — outcome reads "working twins of Halewood and Solihull; the team's work was presented at NVIDIA GTC 2025". No numbers, because there are none yet. A figure here would be the single biggest improvement to the page
+- [ ] **JLR driving simulator** — the hard problem is written as keeping CarMaker and the Android HMI app in step through Simulink. Plausible from the catalog, but confirm it was the actual difficulty
+- [ ] **JLR driving simulator** — dates show as 09/2024 onwards because the placement sat inside the JLR role. Give me the real window if you want it shown separately
+- [ ] **JLR driving simulator** — "what I'd do next" suggests adding eye tracking for glance time. That's Claude's suggestion, not your plan
+- [ ] **Head-tracked LED wall** — the hard problem is written as matching the virtual screen to the physical one and smoothing Kinect jitter without adding lag. Check that matches what actually fought you
+- [ ] **Head-tracked LED wall** — role reads "MSc dissertation, carried into my internship at Algorithm Productions"
+- [ ] **Kinect UE5 plugin** — context now says you built it for the LED wall work and the original wouldn't build on UE5. Hard problem is written as the native DLLs not resolving under UE5
+- [ ] **HoloLens games** — "developer on a six-person team", and a line about the shared MRTK gaze and hand-tracking layer. Replace with what you actually built; this is the weakest guess on the site
+- [ ] **Boids / plane animation / car speed** — written from the videos and the module they were for. The car-speed page now claims focal length is used to map plate width to distance; correct it if the method differed. No agent count is claimed for the boids
+- [ ] **life_os** — start month set to 2025-11 from the repo's creation date. The hard problem is the lazy-loading work, since that was already documented
+
+## Still unanswered — Claude needs these from you
+
+- [ ] **HoloLens** — which parts were yours? (chess AI integration, Jenga physics, Tower of Hanoi, menus, the MRTK interaction layer?)
+- [ ] **Car speed from video** — how accurate were the estimates? A number would finish the page
+- [ ] **Boids** — how many agents ran in real time, and did they avoid the icebergs or pass through them?
+- [ ] **JLR metrics** — anything quantified before 30 Nov: hours saved, zones covered, parts optimised, people using it
+- [ ] **VSCO URL** — `src/data/site.ts`, the icon is ready and waiting
+- [ ] **NVIDIA GTC 2025 session + June 2025 LinkedIn post** — paste the URLs and they go back on the digital twin page. Claude searched and couldn't find the session publicly
+
 ## Content from Cormac
 
 - [ ] **About page** — review the draft in `src/pages/about.astro` (story, photography, outside work, contact). Check the Kuda Media "as a teenager" line and the photography subjects
-- [ ] **Lens intros** — expand the three intros in `src/data/lenses.ts`
-- [ ] **JLR digital twin** — role, problem, outcome, full write-up, architecture diagram; representative renders
-- [ ] **JLR digital twin** — link the NVIDIA GTC 2025 session and the June 2025 LinkedIn post
+- [ ] **JLR digital twin** — representative renders to replace or supplement the JLR press photos
+- [ ] **JLR driving simulator** — images: the simulator shots show the unreleased JEA buck, so don't use them unless JLR gives written permission. Use a diagram, CarMaker scenes or a representative render instead. The page has no images at all at the moment
 - [x] **JLR digital twin** — hero is now a 40 s clip of the twin replaying a production hour (cleared verbally by Cormac's manager, Nov 2026). It shows line IDs, station numbers and MES/andon states but no company name, plant name or date. The full 73 s version, and the "Quality Tower" cut with JLR/Solihull title cards, stay private — don't publish those
-- [ ] **JLR driving simulator** — images: the simulator shots show the unreleased JEA buck, so don't use them unless JLR gives written permission. Use a diagram, CarMaker scenes or a representative render instead
-- [ ] **JLR driving simulator** — summary, stack, role, problem, outcome, write-up, diagram
-- [ ] **Head-tracked LED wall** — role, problem, outcome, context, architecture, what I built, hard problem, result
-- [ ] **Kinect UE5 plugin** — check role wording, hard problem, result; keep star count current
-- [ ] **HoloLens games** — role and what I built myself
-- [ ] **Cloth sim generator** — say what the dataset was for (role set to solo final-year project, dates 2021–22)
-- [ ] **Car speed from video** — method (segmentation, plate detection, size → distance) and accuracy
-- [ ] **Plane animation** — techniques used; repo link
-- [ ] **Boids simulation** — rules, agent count, obstacle avoidance; confirm stack; repo link
-- [ ] **life_os** — start month; one hard problem and what's next
+- [x] **Lens intros** — written for all three
+- [x] **Kinect UE5 plugin** — star count checked against the API (34)
 
 ## New content to create
 

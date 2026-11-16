@@ -1,35 +1,44 @@
 ---
 title: JLR driving simulator
-summary: Real-time driving simulator work at JLR. TODO sharpen.
+summary: An Unreal Engine and nDisplay driving simulator, built so customers could test a new in-car UI before there was a car to test it in.
 lenses: [real-time-3d]
-tags: [Simulation, CarMaker, Unreal Engine]
+tags: [Simulation, CarMaker, Unreal Engine, nDisplay, HMI]
 tier: 1
-dates: { start: "2024-09" }
-role: TODO
-stack: [TODO]
-problem: TODO
-outcome: TODO
-# NDA: no rig footage or JLR screenshots. Diagram + CarMaker captures / representative render only.
-# hero: { poster: ./images/sim-representative.jpg, alt: "...", representative: true }
+dates: { start: "2024-09" } # the placement sat inside the JLR role; exact window TBC
+role: "Placement with the VIC Human Factors team: built the simulator environment and ran the customer clinic"
+team: Human Factors team
+stack: [Unreal Engine, nDisplay, IPG CarMaker, MATLAB Simulink, Android]
+problem: A new in-vehicle multimedia UI needed feedback from real customers long before it could be driven on a road.
+outcome: A customer clinic on the JEA UI cluster run with eight participants.
+# NDA: no rig footage and no JLR screenshots. The simulator shots show the unreleased JEA
+# buck, so they stay out unless JLR gives written permission. Diagram, CarMaker scenes or a
+# representative render only.
 ---
 
 ## Context
 
-TODO: 2–3 sentences.
+Human Factors tests how people actually use what ends up in the car: whether a control is reachable, whether a screen can be read at a glance, whether a menu makes sense at 70 mph. Doing that on a public road is slow and unsafe, and on a prototype that does not exist yet, impossible. A driving simulator puts a person in a realistic enough situation that their reactions mean something, with the new interface in front of them.
 
 ## Architecture
 
-TODO: one diagram: data sources → processing → engine → user.
+The vehicle dynamics run in IPG CarMaker, which also holds the road network, traffic and weather for each scenario. MATLAB Simulink bridges CarMaker's signals and the Android application running the in-car UI, so what the interface shows matches what the car is doing. Unreal Engine draws the world, with nDisplay driving the screens around the buck so the view is continuous across them.
+
+```
+CarMaker (dynamics, scenario) ─ Simulink (signal bridge) ─ Android HMI app
+                 └─────────── Unreal Engine + nDisplay ── screens around the buck
+```
 
 ## What I built
 
-- TODO (3–6 bullets, mine not the team's)
+- Driving scenes and scenarios in CarMaker for the sessions to run against.
+- The Simulink model that passes signals between the HMI Android app and CarMaker, so the UI and the vehicle agree in real time.
+- The simulator environment itself in Unreal Engine with nDisplay, set up across the buck's screens.
+- The customer clinic for the JEA UI cluster, run with eight participants.
 
 ## The hard problem
 
-TODO: one challenge and how I solved it.
+Two systems that each want to own the clock. CarMaker runs the vehicle model on its own fixed step, the Android HMI app runs on its own, and a person notices immediately when the two disagree: the speedometer lags the throttle, or the display updates a beat after the world outside does. The Simulink layer exists to keep them in step, and getting that bridge right mattered more to how real the drive felt than anything in the rendering.
 
 ## Result and what I'd do next
 
-TODO
-
+Eight customers went through the clinic on the JEA UI cluster, and their feedback went back to the team designing the interface. What I would add next is eye tracking: glance time away from the road is the number that decides whether an in-car interface is acceptable, and at the moment that judgement rests on what participants say afterwards.

@@ -23,7 +23,7 @@ export const models: Model[] = [
   {
     id: 'shed-studio',
     title: 'Shed studio',
-    description: 'My garden shed, modelled and textured as a studio space.', // TODO: Cormac to write
+    description: 'My garden shed, modelled and textured as a studio space. Walls and roof are cut away from the camera side so you can see in.',
     src: '/models/shed-studio.glb',
     poster: '/models/shed-studio-poster.webp',
     tools: ['Blender'],
@@ -36,7 +36,7 @@ export const models: Model[] = [
   {
     id: 'bike',
     title: 'Fixie bike',
-    description: 'Fixed-gear bike based on a Cinelli frame, with bullhorn bars and hand-painted decals. Modelled and textured in Blender.', // TODO: check wording
+    description: 'Fixed-gear bike based on a Cinelli frame, with bullhorn bars and hand-painted decals. Modelled and textured in Blender.',
     src: '/models/bike.glb',
     poster: '/models/bike-poster.webp',
     tools: ['Blender'],

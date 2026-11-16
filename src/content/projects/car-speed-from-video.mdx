@@ -16,4 +16,4 @@ repo: https://github.com/cormacmadden/Detecting-Car-Speed-From-Video
 
 A licence plate has a known real-world size, so the rate at which it grows in the frame gives the car's distance over time, and from that, its speed. The video shows each frame alongside the segmentation used to isolate the car and plate.
 
-TODO: add the steps (segmentation method, plate detection, how size maps to distance) and how accurate the estimates were.
+Built for the Computer Vision module of the MSc. The car is isolated from the background by colour segmentation, the plate is found as a bright rectangle of known proportions within it, and its width in pixels is compared against its real width. With the camera's focal length that gives distance per frame, and the change in distance over the frame rate gives speed.

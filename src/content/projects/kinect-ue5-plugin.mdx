@@ -5,9 +5,9 @@ lenses: [real-time-3d]
 tags: [Unreal Engine, C++, Computer vision, Open source]
 tier: 1
 dates: { start: "2023-01", end: "2023-09" }
-role: Maintainer of an updated fork of nama-gatsu's Azure Kinect plugin # TODO check wording
+role: "Author of the UE5 update to nama-gatsu's Azure Kinect plugin"
 stack: [Unreal Engine 5.2, C++, Azure Kinect SDK 1.4.1, Azure Kinect Body Tracking SDK 1.1.0, Niagara]
-outcome: "34★ on GitHub" # TODO update
+outcome: "34 stars on GitHub; the version people land on for Azure Kinect body tracking in UE5"
 hero:
   video: /media/kinect-ue5-plugin/hero.mp4
   poster: ../../assets/projects/kinect-ue5-plugin/hero-poster.jpg
@@ -33,20 +33,20 @@ repo: https://github.com/cormacmadden/Kinect-Body-Tracking-Unreal-Engine-Plugin
 
 ## Context
 
-An updated version of nama-gatsu's Azure Kinect plugin for Unreal Engine, brought up to UE 5.2 so the Kinect can drive characters, particles and materials in real time. TODO: why you needed it (Algorithm / MSc).
+I needed Azure Kinect body tracking inside Unreal Engine 5 for the [head-tracked LED wall](/work/head-tracked-led-wall): the wall renders from wherever the viewer's head is, so something had to supply that position to the engine, frame by frame. The existing plugin was written for an older Unreal and would not build, so I brought it up to UE 5.2 and published the result. It turned out plenty of other people wanted the same thing.
 
 ## What I built
 
 - Fixed the binary-import issues that stopped the original plugin loading in UE5.
 - Added root translation to skeletal tracking, so tracked bodies move through the scene rather than staying pinned in place.
-- TODO: anything else that was yours.
+- Brought the whole plugin up to Unreal Engine 5.2, against Azure Kinect SDK 1.4.1 and Body Tracking SDK 1.1.0.
 
 The plugin exposes depth and colour buffers as render targets in the editor, can be started from Blueprints, drives Niagara particle systems, and maps tracked joints onto a skeleton in the Animation Blueprint.
 
 ## The hard problem
 
-TODO: one challenge and how I solved it.
+Most of the work was not in the tracking at all, it was in the binaries. The Azure Kinect SDKs ship as native DLLs that live outside the project, and the original plugin's module description did not resolve them under UE5, so the editor would fail to load it with little to go on. Sorting that out, and documenting the environment variables and PATH entries it needs, is the difference between a repository people clone and one they abandon — which is most of why this is my most-starred project rather than the more interesting work it was built for.
 
 ## Result and what I'd do next
 
-TODO
+Thirty-four stars and a steady trickle of people using it. The limitation worth fixing is that body tracking needs an NVIDIA GPU and the SDK's own runtime, which puts a hard floor under what it can run on; the newer body-tracking models would widen that.

@@ -4,7 +4,7 @@ summary: A full-stack dashboard that pulls calendar, transport, fitness, finance
 lenses: [digital-twins, tools-pipeline]
 tags: [Full stack, TypeScript, Python, Self-hosting, Personal project]
 tier: 2
-dates: { start: "2025" } # TODO confirm start month
+dates: { start: "2025-11" }
 role: "Solo project: design, frontend, backend and deployment"
 stack: [Next.js, React, TypeScript, FastAPI, Python, SQLModel, SQLite, Docker, GitHub Actions]
 problem: Useful daily information was spread across a dozen apps and services.
@@ -25,4 +25,6 @@ Personal details in the screenshot are blurred.
 - **Data**: SQLModel on SQLite for things the APIs don't store, like plant watering schedules and car maintenance.
 - **Deployment**: a GitHub Actions workflow on a self-hosted runner builds the frontend, builds the Docker images and redeploys them on my home server on every push to `main`. Remote access is set up through a Cloudflare Tunnel.
 
-TODO: one hard problem (e.g. auth for Garmin/Monzo, or home vs remote backend switching) and what's next from the roadmap.
+## The hard problem
+
+A dashboard that talks to a dozen services loads as slowly as the slowest one, and a few of these are slow. Pulling everything up front meant three to five seconds of blank screen, which is fatal for something meant to be glanced at. Widgets now load lazily and render as their data arrives, which took the initial bundle from around 800 KB to 250 KB and first paint to one or two seconds.

@@ -1,14 +1,78 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="How this site is built" description="Self-hosted static site: Astro, Docker, nginx, GitHub Actions.">
+<Base title="How this site is built" description="A static Astro site, built by a self-hosted runner and served from a mini PC in my flat through a Cloudflare tunnel.">
   <h1>How this site is built</h1>
-  <p class="lead">A static Astro site, built by a self-hosted GitHub Actions runner and served from an nginx container on a mini PC in my flat.</p>
+  <p class="lead">
+    A static Astro site, built by a self-hosted GitHub Actions runner and served by nginx in a
+    Docker container on a mini PC in my flat. No cloud host, no platform, and nothing opened on
+    the router.
+  </p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 760 150" role="img" aria-labelledby="pipeline-title">
+      <title id="pipeline-title">
+        A push to main triggers a runner on the mini PC, which builds a Docker image and restarts
+        the container; a Cloudflare tunnel connects outwards from the same machine and serves the
+        site at cormacmadden.com.
+      </title>
+      <g class="box">
+        <rect x="1" y="38" width="140" height="48" rx="8" />
+        <text x="71" y="62">git push</text>
+        <text x="71" y="78" class="sub">main</text>
+      </g>
+      <g class="box">
+        <rect x="181" y="38" width="150" height="48" rx="8" />
+        <text x="256" y="62">self-hosted runner</text>
+        <text x="256" y="78" class="sub">on the mini PC</text>
+      </g>
+      <g class="box">
+        <rect x="371" y="38" width="150" height="48" rx="8" />
+        <text x="446" y="62">nginx container</text>
+        <text x="446" y="78" class="sub">port 8088</text>
+      </g>
+      <g class="box accent">
+        <rect x="561" y="38" width="190" height="48" rx="8" />
+        <text x="656" y="62">cormacmadden.com</text>
+        <text x="656" y="78" class="sub">via Cloudflare tunnel</text>
+      </g>
+      <g class="arrow">
+        <path d="M141 62 H176" /><path d="M331 62 H366" /><path d="M521 62 H556" />
+      </g>
+      <text x="446" y="118" class="note">the tunnel dials out; no inbound port is open</text>
+    </svg>
+  </figure>
+
+  <h2>The build</h2>
   <ol>
-    <li>Content lives as one MDX file per project, with typed frontmatter.</li>
-    <li>On push to <code>main</code>, a self-hosted runner builds a Docker image (Node build stage → nginx).</li>
-    <li>The runner redeploys the container through the Portainer API.</li>
-    <li>TODO: public ingress (reverse proxy with TLS or Cloudflare Tunnel).</li>
+    <li>Each project is one MDX file with typed frontmatter, so a missing field fails the build rather than the page.</li>
+    <li>Astro renders everything to static HTML at build time. There is no UI framework and no client-side router; the only JavaScript is a tag filter, a video play button and the 3D model viewer.</li>
+    <li>Images are optimised and resized during the build. Videos are converted to silent MP4 loops beforehand and served from this machine.</li>
+    <li>Nothing is requested from a third party until you ask for it: the Vimeo player is only loaded when you press play.</li>
   </ol>
-  <p>TODO: architecture diagram.</p>
+
+  <h2>The deploy</h2>
+  <ol>
+    <li>A push to <code>main</code> starts a runner on the mini PC, an N95 box running Docker next to the other things I self-host.</li>
+    <li>It builds a two-stage image, Node to compile the site and nginx to serve it, then brings the container up and smoke-tests it before finishing.</li>
+    <li>A Cloudflare tunnel already running on that machine publishes it at cormacmadden.com. The connection is outbound, so there is no port forwarding and the home IP is never exposed.</li>
+    <li>A deploy takes a couple of minutes, and the site stays up whether or not my desktop is on.</li>
+  </ol>
+
+  <p class="muted">
+    The source is on <a href="https://github.com/cormacmadden/cormacmadden-com">GitHub</a>, deploy
+    notes included.
+  </p>
 </Base>
+
+<style>
+  .diagram { margin: 2.5rem 0; }
+  .diagram svg { width: 100%; height: auto; }
+  .box rect { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+  .box text { fill: var(--text); font-size: 13px; font-weight: 600; text-anchor: middle; }
+  .box .sub { fill: var(--muted); font-size: 11px; font-weight: 400; }
+  .box.accent rect { stroke: var(--accent); }
+  .arrow path { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+  .note { fill: var(--muted); font-size: 11px; text-anchor: middle; }
+  @media (max-width: 40rem) { .diagram { margin-inline: -0.5rem; } }
+</style>

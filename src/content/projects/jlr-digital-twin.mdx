@@ -1,17 +1,15 @@
 ---
 title: Factory digital twin at JLR
-summary: A Unity + React web twin and an NVIDIA Omniverse pipeline for industrial operations.
+summary: A Unity + React web twin of two car plants, fed by a NVIDIA Omniverse pipeline and live line data.
 lenses: [digital-twins, tools-pipeline]
 tags: [Digital twins, Unity, React, Omniverse, OpenUSD]
 tier: 1
 dates: { start: "2024-09" }
-role: TODO
-stack: [Unity, React, NVIDIA Omniverse, OpenUSD, Python]
-problem: TODO
-outcome: TODO
-links:
-  - { label: "NVIDIA GTC 2025 session", href: "#" } # TODO find link
-  - { label: "LinkedIn post (June 2025)", href: "#" } # TODO add link
+role: 3D developer in Industrial Operations Digital Innovation, a team of about 20
+stack: [Unity, React, NVIDIA Omniverse, OpenUSD, Python, Blender]
+problem: Factory CAD, process-engineering data and live line telemetry each lived in their own system, with no shared 3D view to plan or diagnose against.
+outcome: Working twins of the Halewood and Solihull plants; the team's work was presented at NVIDIA GTC 2025.
+# links: add the NVIDIA GTC 2025 session and the June 2025 LinkedIn post once you have the URLs.
 # NDA: no JLR screenshots unless cleared. The hero clip below was cleared by Cormac's
 # manager (verbal, Nov 2026); it carries no company name, plant name or date, but does
 # show line IDs, station numbers and MES/andon states. Everything else: self-made
@@ -40,21 +38,31 @@ gallery:
 
 ## Context
 
-TODO: 2–3 sentences.
+I moved from Dublin to join JLR's Industrial Operations Digital Innovation team, about twenty people building 3D digital twins of the company's factories. We started with the body shop at Halewood and then Solihull. The aim was a single 3D view that manufacturing engineers could plan against and operations could diagnose against, instead of reading the plant through spreadsheets and separate dashboards.
 
 ## Architecture
 
-TODO: one diagram: data sources → processing → engine → user.
+Engineering data comes from Siemens Process Simulate and 3DExperience as CAD and process definitions. An NVIDIA Omniverse pipeline converts and optimises that into OpenUSD, splitting the plant into process cells so it can be loaded a zone at a time. The optimised geometry goes into a Unity runtime, wrapped in a React application, and live data from MES and FACMON is layered on top of it: current line states on one side, historical replay on the other.
+
+```
+Process Simulate ─┐
+3DExperience     ─┼─ Omniverse / OpenUSD ── Unity runtime ── React web app
+MES · FACMON     ─┘      (optimise, split into cells)          (live + replay)
+```
 
 ## What I built
 
-- TODO (3–6 bullets, mine not the team's)
+- **The web twin's 3D layer in Unity:** conveyor and EMS carrier simulation across body-in-white, robots and spot welders spawned from the process data, animations triggered as a car enters a station, and a zone hover and hologram effect for selecting areas.
+- **The data-facing UI:** pop-ups wired to live station data, a KPI view that can be read over different timeframes, and a replay of the trim line that moves individual cars along the track with their details attached.
+- **Omniverse Kit extensions:** a Factory Framework extension that segregates a plant into process cells, a benchmarking extension, a zone outliner that generates outlines around fence lines automatically, and automated optimisation extensions.
+- **An asset manager CLI** covering the whole pipeline, with the USD collection, preparation and upload steps automated instead of done by hand.
+- **Plant geometry in Blender:** low-poly models of Solihull and Halewood, and a fence generator built with geometry nodes.
+- **A concept web twin in three.js** using glTF, to test whether the whole thing could run in a browser without a Unity runtime.
 
 ## The hard problem
 
-TODO: one challenge and how I solved it.
+Factory CAD is not built to be rendered in real time. A plant arrives as tens of thousands of parts modelled for engineering accuracy, far past what a browser can draw at an interactive frame rate, and it keeps changing. Optimising it by hand was not an option at that scale, so the work went into the pipeline: splitting the plant into process cells that load independently, automating the decimation and preparation steps as Omniverse extensions, and building a benchmarking extension so the cost of each zone was measurable rather than guessed at.
 
 ## Result and what I'd do next
 
-TODO
-
+The twins of Halewood and Solihull work, and the team's work was presented at NVIDIA GTC 2025. The obvious next step is wider live coverage: more of the plant's systems feeding the same view, so the replay becomes a continuous record rather than something you ask for.

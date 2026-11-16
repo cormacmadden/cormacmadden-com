@@ -5,10 +5,10 @@ lenses: [real-time-3d]
 tags: [Unreal Engine, XR, Virtual production, nDisplay]
 tier: 1
 dates: { start: "2022-12", end: "2023-09" } # MSc dissertation + Algorithm
-role: TODO
-stack: [Unreal Engine 5, nDisplay, Switchboard, LiveLinkXR, Azure Kinect Body Tracking]
-problem: TODO
-outcome: TODO
+role: "MSc dissertation, carried into my internship at Algorithm Productions"
+stack: [Unreal Engine 5, nDisplay, Switchboard, LiveLinkXR, Azure Kinect Body Tracking, C++]
+problem: A screen shows everyone the same flat image, so 3D content on an LED wall only looks right from one spot in the room.
+outcome: Perspective-correct rendering on a 5 m LED wall and on projection surfaces, tracking a viewer in real time.
 hero:
   video: /media/head-tracked-led-wall/wall-spheres.mp4
   poster: ../../assets/projects/head-tracked-led-wall/wall-spheres-poster.jpg
@@ -35,21 +35,29 @@ repo: https://github.com/cormacmadden/HeadTracked-3D-Screen-Unreal-nDisplay
 
 ## Context
 
-TODO: 2–3 sentences.
+This started as my MSc dissertation at Trinity and carried on into my internship at Algorithm Productions, where the hardware was a 5 m wide LED wall and a projection setup of the kind used in virtual production. A display normally renders from a fixed camera, so the picture is correct for one imaginary viewer and progressively wrong for everyone else. If you know where a person's head actually is, you can render for *them*, and a flat wall starts to read as a window into a space.
 
 ## Architecture
 
-TODO: one diagram: data sources → processing → engine → user.
+An Azure Kinect tracks bodies in front of the wall and the head joint is taken as the eye point. That position becomes the viewpoint of an nDisplay cluster in Unreal Engine, which is configured so its virtual screen matches the physical one in size and position. Each frame is then rendered with an off-axis projection from the tracked point, and nDisplay distributes it across the wall's displays. Switchboard launches and manages the cluster.
+
+```
+Azure Kinect ── body tracking ── head position ── nDisplay viewpoint
+                                                      └─ Unreal Engine ── LED wall / projectors
+```
 
 ## What I built
 
-- TODO (3–6 bullets, mine not the team's)
+- The Unreal project that maps a tracked head position onto the nDisplay viewpoint, so the rendered perspective follows a moving viewer.
+- The nDisplay configuration: the virtual screen matched to the real display's dimensions and position, and the cluster launched through Switchboard.
+- Comparisons of several real-time body and head tracking options to decide what to drive it with.
+- The physical setup: the 5 m LED wall, cameras and the rest of the VR and AR equipment it ran on.
+- The demo scenes used to show it, including the floating spheres and the car.
 
 ## The hard problem
 
-TODO: one challenge and how I solved it.
+The illusion lives or dies on the geometry being right. The virtual screen has to match the physical one in size and position to the centimetre, because any mismatch between the two shows up as the scene sliding against the edge of the wall as the viewer moves — the one cue that tells the eye it is looking at a picture. Tracking noise does the same thing: the Kinect's head position jitters, and a jittering eye point makes the whole world shake. Getting it convincing was mostly careful measurement of the real setup and smoothing the tracked position enough to be stable without introducing lag you could feel.
 
 ## Result and what I'd do next
 
-TODO
-
+It works for one tracked viewer, which is the honest limit of the technique: the wall can only be correct for one person at a time, and everyone else sees a distorted version. The demos read as genuinely three-dimensional on camera, which is why the same idea is used in virtual production, where the camera *is* the viewer.
