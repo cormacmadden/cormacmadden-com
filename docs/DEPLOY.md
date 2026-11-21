@@ -24,8 +24,8 @@ The tunnel already routes `cloud`, `claw` and `gymin` to other ports on
 ### 1. First deploy on the LXC
 
 ```sh
-git clone https://github.com/cormacmadden/cormacmadden-com.git /srv/cormacmadden-com
-cd /srv/cormacmadden-com
+git clone https://github.com/cormacmadden/cormacmadden-com.git /srv/projects/cormacmadden-com
+cd /srv/projects/cormacmadden-com
 docker compose up -d --build
 curl -I http://localhost:8088/        # expect 200 OK
 ```
@@ -64,7 +64,7 @@ registry, no SSH keys.
 | Task | Command |
 | --- | --- |
 | Deploy | `git push` (or **Run workflow** in the Actions tab) |
-| Deploy by hand | `cd /srv/cormacmadden-com && git pull && docker compose up -d --build` |
+| Deploy by hand | `cd /srv/projects/cormacmadden-com && git pull && docker compose up -d --build` |
 | Logs | `docker compose logs -f web` |
 | Is it serving? | `curl -I http://192.168.1.214:8088/` |
 | Roll back | `git revert` the commit and push, or check out an older commit and run the compose command |
