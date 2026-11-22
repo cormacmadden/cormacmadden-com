@@ -32,7 +32,7 @@ export const lenses: Record<LensId, Lens> = {
     kicker: 'Industrial 3D · Unity · Omniverse / USD · Web 3D',
     intro:
       'Factories generate enormous amounts of data and almost none of it looks like the place it came from. I build the layer in between: engineering CAD and live line telemetry turned into a 3D model of the plant that people can walk through, query and replay, in a browser rather than on a workstation.',
-    projects: ['jlr-digital-twin', 'life-os'],
+    projects: ['jlr-digital-twin', 'twinski', 'life-os'],
     image: { src: digitalTwinsImg, alt: 'Car bodies moving along an automated assembly line' },
     // Keep this NDA-safe: no internal tool names, colleagues, data, figures or unreleased models.
     context: {

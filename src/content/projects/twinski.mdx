@@ -1,0 +1,67 @@
+---
+title: TwinSki
+summary: A personal 3D ski map that matches my Garmin ski days to the real pistes and draws them on painted 3D terrain of the Alps, with live lift status.
+lenses: [digital-twins]
+tags: [three.js, WebGL, Maps, OpenStreetMap, Garmin, Self-hosted]
+tier: 1
+dates: { start: "2026-11" }
+role: Solo project
+stack: [three.js, JavaScript, Node.js, Fastify, OpenStreetMap, Blender, Docker, Cloudflare]
+hero:
+  poster: ../../assets/projects/twinski/day.jpg
+  alt: A ski day in Val Thorens on the 3D map, with numbered runs coloured by speed and the day's stats below
+gallery:
+  - src: ../../assets/projects/twinski/alps.jpg
+    alt: Overview map of the French Alps with lakes and ski areas outlined, each labelled with today's open lifts
+    caption: The Alps overview. Each ski area shows its live lift count and opens its own map.
+  - src: ../../assets/projects/twinski/world.jpg
+    alt: A painted globe with a flag for each ski region, the Alps highlighted
+    caption: The world page, with a flag for each ski region.
+  - src: ../../assets/projects/twinski/thumb-3-vallees.webp
+    alt: Diorama render of Les 3 Vallées
+    caption: Les 3 Vallées
+  - src: ../../assets/projects/twinski/thumb-portes-du-soleil.webp
+    alt: Diorama render of Portes du Soleil
+    caption: Portes du Soleil
+  - src: ../../assets/projects/twinski/thumb-paradiski.webp
+    alt: Diorama render of Paradiski
+    caption: Paradiski
+  - src: ../../assets/projects/twinski/thumb-tignes-val-disere.webp
+    alt: Diorama render of Tignes and Val d'Isère
+    caption: Tignes – Val d'Isère
+  - src: ../../assets/projects/twinski/thumb-les-2-alpes.webp
+    alt: Diorama render of Les 2 Alpes
+    caption: Les 2 Alpes
+links:
+  - { label: Open TwinSki, href: "https://ski.cormacmadden.com" }
+---
+
+## Context
+
+Ski apps show you a GPS line on a flat map and a list of numbers. I wanted the opposite: the mountain as a painted 3D trail map, like the piste maps at the bottom of the lift, with my own day drawn onto it run by run.
+
+TwinSki is a digital twin of a ski area at the scale of one person. Each evening it pulls my ski days from Garmin, splits them into runs and lifts, works out which real pistes I skied, and draws the day on the terrain.
+
+## What it does
+
+- **A day on the mountain.** Runs are numbered and coloured by speed, matched to the real pistes, with stats for the day: runs, vertical, distance, top speed, time on lifts and the most ridden lift.
+- **Conquest.** Every piste is sampled every 20 m, so each area map shows how much of it I have skied.
+- **Live status.** Lift and piste status for Les 3 Vallées and Portes du Soleil, on the maps and on a morning brief with the weather, freezing level and a piste to tick off.
+- **Five ski areas and the Alps.** Les 3 Vallées, Portes du Soleil, Paradiski, Tignes – Val d'Isère and Les 2 Alpes, an overview of the Alps with each area's live lift count, and a globe of ski regions.
+- **Tap anything.** Pistes, lifts, villages and restaurants open an info card with live status and my own history on them.
+
+## How it's built
+
+The terrain comes from 5 m IGN elevation data in France, turned into an adaptive mesh that is denser along the pistes and roads, which are smoothed so they sit in the snow the way groomed runs do. Pistes, lifts, forests, buildings, roads, lakes and lift pylons all come from OpenStreetMap: forests become real trees, buildings get gabled and hipped roofs, and lift cables sag between their pylons.
+
+The viewer is three.js with a painted shader that gives it the look of a hand-drawn piste map. A Node server handles the Garmin pull, reads the original FIT files, detects runs and lifts from altitude and speed, and matches each run to the nearest pistes. It runs in Docker on my home server and is published through a Cloudflare tunnel.
+
+Every area also exports to Blender (terrain, buildings and instanced trees in real-world metres), and a hand-made version of the terrain can be dropped back in to replace the generated one.
+
+## The hard problem
+
+Making it run everywhere. A full area is detailed terrain, a forest of individual trees and every building in the valley, and it has to work on a phone on a chairlift. Trees are five triangles each with distance-based detail, the scene only renders when something changes, resolution drops while the camera moves and sharpens when it stops, and devices without a GPU get a lite mode with coarser terrain and a cheaper shader.
+
+## Next
+
+Phone GPS as a "where am I" dot to use on the mountain, and more ski regions on the globe.

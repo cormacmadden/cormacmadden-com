@@ -17,7 +17,7 @@ export const site = {
     vsco: '', // TODO: add VSCO URL to show the icon
   },
   /** Home page featured case studies, in order (project slugs). */
-  featured: ['jlr-digital-twin', 'head-tracked-led-wall', 'kinect-ue5-plugin'],
+  featured: ['jlr-digital-twin', 'mclaren-f1-unreal', 'head-tracked-led-wall', 'kinect-ue5-plugin'],
   nav: [
     { href: '/work', label: 'Work' },
     { href: '/about', label: 'About' },

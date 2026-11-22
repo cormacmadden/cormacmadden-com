@@ -48,7 +48,7 @@ const featured = site.featured
   </div>
 
   <h2>Featured work</h2>
-  <div class="grid">{featured.map((p) => <ProjectCard project={p} />)}</div>
+  <div class="grid featured">{featured.map((p) => <ProjectCard project={p} />)}</div>
 
   <h2>3D artwork</h2>
   <p class="muted">Product concepts, interiors and arch-viz, some with a 3D model you can spin around.</p>
@@ -170,6 +170,10 @@ const featured = site.featured
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
   }
 
+  /* Four featured cards: one row on wide screens, 2 × 2 in between, never a lone card. */
+  .grid.featured { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 75rem) { .grid.featured { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 40rem) { .grid.featured { grid-template-columns: 1fr; } }
   .art-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
   .art-tile { position: relative; display: block; text-decoration: none; color: inherit; }
   .art-tile img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); background: var(--border); transition: opacity 0.2s; }
