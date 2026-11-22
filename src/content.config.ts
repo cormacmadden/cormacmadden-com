@@ -55,6 +55,8 @@ const projects = defineCollection({
         .default([]),
       /** id of an entry in src/data/models.ts: shows a spin-around 3D viewer on the page. */
       model: z.string().optional(),
+      /** A live site or app: shown as a button under the summary. */
+      live: z.object({ href: z.url(), label: z.string() }).optional(),
       video: z.url().optional(), // full demo video (YouTube etc.)
       repo: z.url().optional(),
       links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),

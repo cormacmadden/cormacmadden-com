@@ -17,6 +17,12 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
     <p class="muted"><a href="/work">← All work</a></p>
     <h1>{d.title}</h1>
     <p class="lead">{d.summary}</p>
+    {d.live && (
+      <p class="actions live">
+        <a class="btn" href={d.live.href}>{d.live.label} <span aria-hidden="true">↗</span></a>
+        <span class="muted">{new URL(d.live.href).host}</span>
+      </p>
+    )}
 
     {d.hero && (
       <figure class:list={['hero', { 'hero-bleed': d.showcase }]}>
@@ -27,7 +33,7 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
         ) : d.hero.poster ? (
           d.showcase
             ? <Image src={d.hero.poster} alt={d.hero.alt} widths={[960, 1600, 2560]} sizes="100vw" loading="eager" />
-            : <Image src={d.hero.poster} alt={d.hero.alt} widths={[640, 1280]} sizes="(max-width: 78rem) 100vw, 78rem" />
+            : <Image src={d.hero.poster} alt={d.hero.alt} widths={[640, 1280, 1920, 2560]} sizes="(max-width: 78rem) 100vw, 78rem" />
         ) : null}
         {d.hero.representative && <figcaption class="muted">Representative render, not production imagery.</figcaption>}
       </figure>
@@ -74,7 +80,7 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
             </figure>
           ) : (
             <figure>
-              <Image src={g.src} alt={g.alt} widths={[480, 960]} sizes="(max-width: 40rem) 100vw, 34rem" loading="lazy" />
+              <Image src={g.src} alt={g.alt} widths={[480, 960, 1440]} sizes="(max-width: 40rem) 100vw, 34rem" loading="lazy" />
               {g.caption && <figcaption class="muted">{g.caption}</figcaption>}
             </figure>
           ))}
@@ -82,10 +88,11 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
       </section>
     )}
 
-    {(d.repo || d.video || d.links.length > 0) && (
+    {(d.live || d.repo || d.video || d.links.length > 0) && (
       <section>
         <h2>Links</h2>
         <ul>
+          {d.live && <li><a href={d.live.href}>{d.live.label}</a> ({new URL(d.live.href).host})</li>}
           {d.video && <li><a href={d.video}>Demo video</a></li>}
           {d.repo && <li><a href={d.repo}>Source code</a></li>}
           {d.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
@@ -96,6 +103,8 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
 </Base>
 
 <style>
+  .actions.live { align-items: center; margin-top: 1.25rem; }
+  .actions.live .muted { font-size: 0.9rem; }
   .hero { margin: 2rem 0; }
   .hero video, .hero :global(img) { width: 100%; border-radius: var(--radius); background: var(--border); }
   /* Stills are cropped to 16:9; videos keep their own shape (some are very wide or tall). */
