@@ -87,7 +87,7 @@ export const lenses: Record<LensId, Lens> = {
     kicker: 'Unreal · XR · Virtual production · Simulation',
     intro:
       'Real-time rendering put to work rather than shipped as a game: LED walls that render for where the viewer is standing, simulators that put a person in a car that does not exist yet, and headsets that drop a model into the room. Mostly Unreal Engine and Unity, usually with a camera or a tracker feeding them.',
-    projects: ['head-tracked-led-wall', 'kinect-ue5-plugin', 'jlr-driving-simulator', 'media/hamilton-gardens-apartment-tour', 'media/berlin-penthouse-apartment', 'ai-art-gallery-vr', 'hololens-games'],
+    projects: ['head-tracked-led-wall', 'kinect-ue5-plugin', 'jlr-driving-simulator', 'mclaren-f1-unreal', 'media/hamilton-gardens-apartment-tour', 'media/berlin-penthouse-apartment', 'ai-art-gallery-vr', 'hololens-games'],
     image: { src: realTime3dImg, alt: 'Inside the VR AI art gallery: a bright white gallery space under a glass roof' },
   },
   'tools-pipeline': {
