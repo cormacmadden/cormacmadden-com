@@ -19,13 +19,15 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
     <p class="lead">{d.summary}</p>
 
     {d.hero && (
-      <figure class="hero">
+      <figure class:list={['hero', { 'hero-bleed': d.showcase }]}>
         {d.hero.video ? (
           <video autoplay muted loop playsinline preload="metadata" poster={d.hero.poster?.src} aria-label={d.hero.alt}>
             <source src={d.hero.video} type="video/mp4" />
           </video>
         ) : d.hero.poster ? (
-          <Image src={d.hero.poster} alt={d.hero.alt} widths={[640, 1280]} sizes="(max-width: 78rem) 100vw, 78rem" />
+          d.showcase
+            ? <Image src={d.hero.poster} alt={d.hero.alt} widths={[960, 1600, 2560]} sizes="100vw" loading="eager" />
+            : <Image src={d.hero.poster} alt={d.hero.alt} widths={[640, 1280]} sizes="(max-width: 78rem) 100vw, 78rem" />
         ) : null}
         {d.hero.representative && <figcaption class="muted">Representative render, not production imagery.</figcaption>}
       </figure>
@@ -51,7 +53,7 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
     {(d.clips.length > 0 || d.gallery.length > 0) && (
       <section>
         <h2>Gallery</h2>
-        <div class="gallery">
+        <div class:list={['gallery', { showcase: d.showcase }]}>
           {d.clips.map((c) => (
             <figure>
               <video autoplay muted loop playsinline preload="none" poster={c.poster?.src} aria-label={c.alt}>
@@ -60,7 +62,20 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
               {c.caption && <figcaption class="muted">{c.caption}</figcaption>}
             </figure>
           ))}
-          {d.gallery.map((g) => (
+          {d.gallery.map((g) => d.showcase ? (
+            <figure class={`span-${g.span}`}>
+              <a href={g.src.src} aria-label={`Open full size: ${g.alt}`}>
+                <Image
+                  src={g.src}
+                  alt={g.alt}
+                  widths={g.span === 'full' ? [960, 1600, 1920] : [480, 960, 1440]}
+                  sizes={g.span === 'full' ? '(max-width: 90rem) 100vw, 88rem' : g.span === 'third' ? '(max-width: 40rem) 100vw, 30rem' : '(max-width: 40rem) 100vw, 44rem'}
+                  loading="lazy"
+                />
+              </a>
+              {g.caption && <figcaption class="muted">{g.caption}</figcaption>}
+            </figure>
+          ) : (
             <figure>
               <Image src={g.src} alt={g.alt} widths={[480, 960]} sizes="(max-width: 40rem) 100vw, 34rem" loading="lazy" />
               {g.caption && <figcaption class="muted">{g.caption}</figcaption>}
@@ -98,5 +113,21 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
   .gallery { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
   .gallery figure { margin: 0; }
   .gallery video, .gallery :global(img) { width: 100%; height: auto; border-radius: var(--radius); background: var(--border); }
+  /* Showcase: full-bleed cinematic hero and a 6-column editorial gallery. */
+  :global(body) { overflow-x: clip; } /* 100vw includes the scrollbar */
+  .hero-bleed { width: 100vw; margin-left: calc(50% - 50vw); }
+  .hero-bleed :global(img) { border-radius: 0; aspect-ratio: 2.39 / 1; object-position: 50% 55%; max-height: 85vh; }
+  .gallery.showcase { grid-template-columns: repeat(6, 1fr); gap: 0.75rem; }
+  .gallery.showcase .span-full { grid-column: span 6; }
+  .gallery.showcase .span-half { grid-column: span 3; }
+  .gallery.showcase .span-third { grid-column: span 2; }
+  .gallery.showcase a { display: block; overflow: hidden; border-radius: var(--radius); }
+  .gallery.showcase :global(img) { border-radius: 0; transition: transform 0.6s ease; }
+  .gallery.showcase a:hover :global(img) { transform: scale(1.03); }
+  @media (prefers-reduced-motion: reduce) { .gallery.showcase :global(img) { transition: none; } }
+  @media (max-width: 40rem) {
+    .hero-bleed :global(img) { aspect-ratio: 16 / 9; }
+    .gallery.showcase .span-half, .gallery.showcase .span-third { grid-column: span 6; }
+  }
   @media (max-width: 40rem) { .tldr { grid-template-columns: 1fr; } .tldr dd { margin-bottom: 0.5rem; } }
 </style>

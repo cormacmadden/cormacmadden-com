@@ -37,8 +37,18 @@ const projects = defineCollection({
         .optional(),
       /** Extra images shown under "Gallery" on the case study page. */
       gallery: z
-        .array(z.object({ src: image(), alt: z.string(), caption: z.string().optional() }))
+        .array(
+          z.object({
+            src: image(),
+            alt: z.string(),
+            caption: z.string().optional(),
+            /** Showcase layout only: share of the row the image takes. */
+            span: z.enum(['full', 'half', 'third']).default('half'),
+          }),
+        )
         .default([]),
+      /** Image-led layout: full-bleed cinematic hero, editorial gallery, images open full size. */
+      showcase: z.boolean().default(false),
       /** Extra looping clips (paths under /public). */
       clips: z
         .array(z.object({ src: z.string(), poster: image().optional(), alt: z.string(), caption: z.string().optional() }))
