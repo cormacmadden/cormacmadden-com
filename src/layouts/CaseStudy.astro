@@ -34,10 +34,7 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
     )}
 
     <dl class="tldr card">
-      {d.problem && <><dt>Problem</dt><dd>{d.problem}</dd></>}
-      <dt>My role</dt><dd>{d.role}{d.team && ` · ${d.team}`}</dd>
       <dt>Stack</dt><dd><ul class="chips stack">{d.stack.map((s) => <ToolChip name={s} />)}</ul></dd>
-      {d.outcome && <><dt>Outcome</dt><dd>{d.outcome}</dd></>}
       <dt>Dates</dt><dd>{dates}</dd>
     </dl>
 
