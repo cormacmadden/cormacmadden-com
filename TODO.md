@@ -31,7 +31,7 @@ they read as fact on the site, so give them a once-over:
 - [ ] **VSCO URL** — `src/data/site.ts`, the icon is ready and waiting
 - [ ] **Ard Nua's year** — it shows 2023 from its upload date; the other two show 2018 and 2017, which match their titles. Give me the real year if 2023 is wrong
 - [ ] **NVIDIA GTC 2025 session + June 2025 LinkedIn post** — paste the URLs and they go back on the digital twin page. Claude searched and couldn't find the session publicly
-- [ ] **McLaren F1 configurator** — add the configurator video as the hero (`public/media/mclaren-f1-unreal/`), the behind-the-scenes images (editor, Claude-made templates and backgrounds, inspiration), and a concrete example for each AI workflow bullet. Marked `TODO` in `src/content/projects/mclaren-f1-unreal.mdx`
+- [ ] **McLaren F1 configurator** — add the behind-the-scenes images (editor, Claude-made templates and backgrounds, inspiration), and a concrete example for each AI workflow bullet. Marked `TODO` in `src/content/projects/mclaren-f1-unreal.mdx`
 
 ## Content from Cormac
 

@@ -30,6 +30,7 @@ const projects = defineCollection({
       hero: z
         .object({
           video: z.string().optional(), // path under /public, e.g. /media/kinect.mp4
+          videoSmall: z.string().optional(), // lighter version for screens up to 1280px wide
           poster: image().optional(),
           alt: z.string().default(''),
           representative: z.boolean().default(false), // label NDA-safe stand-in renders
@@ -55,6 +56,21 @@ const projects = defineCollection({
         .default([]),
       /** id of an entry in src/data/models.ts: shows a spin-around 3D viewer on the page. */
       model: z.string().optional(),
+      /**
+       * A long video shown after the write-up: a Vimeo id (player loads only on play)
+       * or a path under /public (native player, preload none).
+       */
+      film: z
+        .object({
+          vimeo: z.string().regex(/^\d+$/).optional(),
+          src: z.string().optional(),
+          poster: image().optional(),
+          title: z.string(),
+          alt: z.string(),
+          caption: z.string().optional(),
+        })
+        .refine((f) => Boolean(f.vimeo) !== Boolean(f.src), 'film needs exactly one of vimeo or src')
+        .optional(),
       /** A live site or app: shown as a button under the summary. */
       live: z.object({ href: z.url(), label: z.string() }).optional(),
       video: z.url().optional(), // full demo video (YouTube etc.)
