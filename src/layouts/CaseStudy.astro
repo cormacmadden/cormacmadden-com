@@ -5,11 +5,13 @@ import Base from './Base.astro';
 import ToolChip from '../components/ToolChip.astro';
 import ModelViewer from '../components/ModelViewer.astro';
 import { models } from '../data/models';
+import { creditToHtml } from '../lib/credit';
 
 interface Props { project: CollectionEntry<'projects'> }
 const { project } = Astro.props;
 const d = project.data;
 const model = d.model ? models.find((m) => m.id === d.model) : undefined;
+const creditHtml = d.credit ? creditToHtml(d.credit) : '';
 const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} – ${d.dates.end ?? 'present'}`;
 ---
 <Base title={d.title} description={d.summary}>
@@ -43,6 +45,9 @@ const dates = d.dates.end === d.dates.start ? d.dates.start : `${d.dates.start} 
     <dl class="tldr card">
       <dt>Stack</dt><dd><ul class="chips stack">{d.stack.map((s) => <ToolChip name={s} />)}</ul></dd>
       <dt>Dates</dt><dd>{dates}</dd>
+      {d.credit && (
+        <><dt>Credits</dt><dd set:html={creditHtml} /></>
+      )}
     </dl>
 
     {model && (

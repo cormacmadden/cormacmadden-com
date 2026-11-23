@@ -1,12 +1,13 @@
 ---
 title: McLaren F1 Real-Time Configurator
-summary: A real-time car configurator in Unreal Engine 5, built in one weekend, with AI taking the slow parts of the workflow.
+summary: A real-time McLaren F1 configurator in Unreal Engine 5, built in a weekend to test an AI-assisted workflow, with path-traced stills.
 lenses: [real-time-3d]
 tags: [Unreal Engine, Automotive visualisation, AI-assisted workflow, Rendering]
 tier: 1
 dates: { start: "2026-11", end: "2026-11" }
-role: "Solo, over one weekend"
-stack: [Unreal Engine 5]
+role: "Solo, over a weekend"
+stack: [Unreal Engine 5, Photoshop]
+credit: "Car model from [wirewheelsclub.com](https://wirewheelsclub.com). Materials, lighting, configurator and rendering by me."
 showcase: true
 hero:
   video: /media/mclaren-f1-unreal/orbit.mp4
@@ -52,9 +53,7 @@ gallery:
 
 ## Context
 
-A car configurator is a familiar brief: one hero car, a handful of paints and environments, an interior you can look around, and everything running in real time. What usually makes it expensive is not the rendering but the setup work in between.
-
-So I gave myself a weekend. The goal was to see how far an Unreal Engine 5 configurator could get from a standing start in two days if AI took on as much of the slow, repetitive part of the workflow as possible, and I kept the decisions about how it should look.
+This was a deliberate experiment: give a car configurator one weekend and hand AI as much of the setup work as possible. Variant setup, animation retargeting and prototyping usually take up most of a configurator schedule, so that is where AI went. The look of the car (materials, lighting and the final images) stayed with me.
 
 ## Where AI took the time out
 
@@ -64,8 +63,16 @@ So I gave myself a weekend. The goal was to see how far an Unreal Engine 5 confi
 
 {/* TODO (Cormac): a concrete example or two per bullet: what you asked for, what came back, roughly how long it would have taken by hand. */}
 
+## Materials and lighting
+
+The car model is bought in; the materials are my own. The paint is a clear-coat material with metallic flake, set up once and recoloured for each variant, and the carbon fibre and suede are built to hold up in close-ups of the interior and engine bay. The scene is a plain concrete terrace under an open sky, so the reflections stay clean and the shape of the car does the work.
+
+The configurator runs in real time. The stills are rendered with Unreal's path tracer, exported as raw 32-bit HDR images, then graded in Photoshop and exported for the web.
+
+{/* TODO (Cormac): check the material lines above (clear coat and flake, carbon, suede) and add a specific or two: shading model, how the flake or weave was made, ray tracing settings for the real-time view. */}
+
 ## The result
 
 A working configurator, shown in the walkthrough below, and the stills on this page, all rendered in Unreal Engine 5: exterior and overhead shots, and the details that make an F1 an F1, down to the central driving seat.
 
-The point is less the car than the workflow. The parts of real-time visualisation that used to eat the schedule are the parts AI is now good at, which leaves the time for the parts that make it look good.
+The experiment answered its question: the repetitive setup behind a configurator is now the part AI does well, which leaves the time for materials, lighting and the final image.

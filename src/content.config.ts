@@ -25,6 +25,8 @@ const projects = defineCollection({
       role: z.string(),
       team: z.string().optional(),
       stack: z.array(z.string()).default([]),
+      /** Who made what, shown in the summary box. Supports [text](https://…) links. */
+      credit: z.string().optional(),
       problem: z.string().optional(),
       outcome: z.string().optional(),
       hero: z
